@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidClean_CaDETPackage">
+	  <Menus>
+		<Menu guid="guidClean_CaDETPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+	        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+	        <Strings>
+	        <ButtonText>Clean CaDET</ButtonText>
+	        </Strings>
+        </Menu>
+	  </Menus>
+	  <Groups>
+		  <Group guid="guidClean_CaDETPackageCmdSet" id="MenuGroup" priority="0x0600">
+			  <Parent guid="guidClean_CaDETPackageCmdSet" id="TopLevelMenu"/>
+		  </Group>
+	  </Groups>
+
+	  <Buttons>
+      <Button guid="guidClean_CaDETPackageCmdSet" id="TutoringWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidClean_CaDETPackageCmdSet" id="MenuGroup"/>
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Tutor</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\TutoringWindowCommand.png" usedList="bmpPic1"/>
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidClean_CaDETPackage" value="{549a40ba-7800-435f-8e0f-b0c5ec49fbf3}" />
+
+    <GuidSymbol name="guidClean_CaDETPackageCmdSet" value="{e950531b-e655-48b1-8c63-ac3526bdbb54}">
+		<IDSymbol name="TopLevelMenu" value="0x1021"/>
+		<IDSymbol name="MenuGroup" value="0x1020"/>
+		<IDSymbol name="TutoringWindowCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{ec7304be-ae7a-4fe7-83d7-ef2a19d26720}" >
+      <IDSymbol name="bmpPic1" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
