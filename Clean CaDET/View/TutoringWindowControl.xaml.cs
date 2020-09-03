@@ -1,15 +1,12 @@
-﻿namespace Clean_CaDET.View
-{
-    using Clean_CaDET.Model;
-    using Clean_CaDET.Model.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Controls;
+﻿using Clean_CaDET.Model;
+using Clean_CaDET.Model.Data;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Windows;
+using System.Windows.Controls;
 
+namespace Clean_CaDET.View
+{
     public partial class TutoringWindowControl : UserControl
     {
         public TutoringWindowControl()
@@ -27,6 +24,13 @@
             {
                 //TODO: Error display logic
             }
+        }
+
+        private void SendCode(object sender, RoutedEventArgs e)
+        {
+            PlatformService.Instance.SendCodeAsync();
+            
+            //TODO: Get code smells
         }
     }
 }

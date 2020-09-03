@@ -23,6 +23,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Content="Test code" Click="SendCode" Width="120" Height="80" Name="button2"/>
         </StackPanel>
     </Grid>
 </UserControl>
