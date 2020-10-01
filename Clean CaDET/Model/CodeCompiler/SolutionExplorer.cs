@@ -4,14 +4,27 @@ using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Clean_CaDET.Model.CodeCompiler
 {
-    class SolutionCompiler
+    class SolutionExplorer
     {
+        public async Task<string> FindClassCode(string filePath)
+        {
+            Solution solution = GetBaseSolution();
+            foreach (var project in solution.Projects)
+            {
+                var doc = project.Documents.First(document => document.FilePath.Equals(filePath));
+                SourceText sourceCode = await doc.GetTextAsync();
+                return sourceCode.ToString();
+            }
+
+            return null;
+        }
+
         public async Task<CaDETSolution> CompileBaseSolutionAsync()
         {
             Solution solution = GetBaseSolution();
@@ -27,7 +40,7 @@ namespace Clean_CaDET.Model.CodeCompiler
         {
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
             var workspace = componentModel.GetService<VisualStudioWorkspace>();
-            return workspace.CurrentSolution ?? throw new NullReferenceException();
+            return workspace.CurrentSolution;
         }
 
         private async Task<CaDETProject> CompileProjectAsync(Project project)

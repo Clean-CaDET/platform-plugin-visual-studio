@@ -9,16 +9,18 @@ namespace Clean_CaDET.View
 {
     public partial class TutoringWindowControl : UserControl
     {
+        private PlatformService _platform;
         public TutoringWindowControl()
         {
             InitializeComponent();
+            _platform = new PlatformService();
         }
 
         private async void GetEducationalContent(object sender, RoutedEventArgs e)
         {
             try
             {
-                List<EduSnippet> content = await PlatformService.Instance.GetEducationalContentAsync();
+                List<EduSnippet> content = await _platform.GetEducationalContentAsync();
                 lvDataBinding.ItemsSource = content;
             } catch(HttpRequestException)
             {
@@ -26,9 +28,9 @@ namespace Clean_CaDET.View
             }
         }
 
-        private void SendCode(object sender, RoutedEventArgs e)
+        private async void SendCode(object sender, RoutedEventArgs e)
         {
-            PlatformService.Instance.SendCodeAsync();
+            await _platform.SendAllCodeAsync();
             
             //TODO: Get code smells
         }

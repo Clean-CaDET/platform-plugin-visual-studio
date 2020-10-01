@@ -30,13 +30,7 @@ namespace Clean_CaDET.View
             private set;
         }
 
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
+        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => package;
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
@@ -51,7 +45,7 @@ namespace Clean_CaDET.View
             ThreadHelper.ThrowIfNotOnUIThread();
 
             ToolWindowPane window = this.package.FindToolWindow(typeof(TutoringWindow), 0, true);
-            if ((null == window) || (null == window.Frame))
+            if (window?.Frame == null)
             {
                 throw new NotSupportedException("Cannot create tool window");
             }

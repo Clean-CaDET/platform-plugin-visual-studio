@@ -18,6 +18,7 @@ namespace Clean_CaDET
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await View.TutoringWindowCommand.InitializeAsync(this);
+            await Clean_CaDET.Commands.ExamineProjectItemCommand.InitializeAsync(this);
         }
     }
 }

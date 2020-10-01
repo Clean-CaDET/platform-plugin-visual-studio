@@ -6,43 +6,42 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Clean_CaDET.Model.DTOs;
 
 namespace Clean_CaDET.Model
 {
     public sealed class PlatformService
     {
-        #region Singleton
-        private static readonly PlatformService _instance = new PlatformService();
-        static PlatformService() {}
-        private PlatformService() { }
-
-        public static PlatformService Instance { get
-            {
-                return _instance;
-            }
-        }
-        #endregion
-
-        private readonly HttpClient httpClient = new HttpClient();
+        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly SolutionExplorer _explorer = new SolutionExplorer();
         private readonly string eduUrl = "https://localhost:44348/api/content";
-        private readonly string codeUrl = "https://localhost:44348/api/analysis";
+        private readonly string codeUrl = "https://localhost:44325/api/repository/parse/class";
 
         public async Task<List<EduSnippet>> GetEducationalContentAsync()
         {
-            HttpResponseMessage response = await httpClient.GetAsync(eduUrl);
+            HttpResponseMessage response = await _httpClient.GetAsync(eduUrl);
             string responseContent = await response.Content.ReadAsStringAsync();
             List<EduSnippet> eduVideos = JsonConvert.DeserializeObject<List<EduSnippet>>(responseContent);
             return eduVideos;
         }
 
-        public async Task<string> SendCodeAsync()
+        public async Task<string> SendAllCodeAsync()
         {
-            SolutionCompiler st = new SolutionCompiler();
-            CaDETSolution solution = await st.CompileBaseSolutionAsync();
+            CaDETSolution solution = await _explorer.CompileBaseSolutionAsync();
 
             StringContent request = CreateCodeAnalysisRequest(solution);
-            HttpResponseMessage response = await httpClient.PostAsync(codeUrl, request);
+            HttpResponseMessage response = await _httpClient.PostAsync(codeUrl, request);
             return response.StatusCode.ToString();
+        }
+
+        public async Task<CaDETClassDTO> SendClassCodeAsync(string classPath)
+        {
+            string sourceCode = await _explorer.FindClassCode(classPath);
+
+            StringContent request = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync(codeUrl, request);
+            string content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<CaDETClassDTO>(content);
         }
 
         private StringContent CreateCodeAnalysisRequest(CaDETSolution solution)
