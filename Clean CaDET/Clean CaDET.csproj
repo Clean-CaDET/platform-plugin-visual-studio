@@ -52,7 +52,9 @@
     <Compile Include="Model\CodeCompiler\Data\CaDETSolution.cs" />
     <Compile Include="Model\CodeCompiler\SolutionExplorer.cs" />
     <Compile Include="Model\Data\EduContent\EduSnippet.cs" />
-    <Compile Include="Model\DTOs\CaDETClassDTO.cs" />
+    <Compile Include="Model\DTOs\ClassMetricsDTO.cs" />
+    <Compile Include="Model\DTOs\ClassQualityAnalysisResponse.cs" />
+    <Compile Include="Model\DTOs\EducationalContentDTO.cs" />
     <Compile Include="Model\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clean_CaDETPackage.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="View\TutoringWindowControl.xaml.cs">
       <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewModel\TutoringWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">

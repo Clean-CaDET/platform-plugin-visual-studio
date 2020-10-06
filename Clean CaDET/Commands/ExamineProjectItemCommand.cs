@@ -7,6 +7,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.InteropServices;
 using Clean_CaDET.Model.DTOs;
+using Clean_CaDET.View;
 using Task = System.Threading.Tasks.Task;
 
 namespace Clean_CaDET.Commands
@@ -18,7 +19,7 @@ namespace Clean_CaDET.Commands
         private readonly AsyncPackage _package;
 
         private string _selectedFilePath;
-        private PlatformService _service = new PlatformService();
+        private readonly PlatformService _service = new PlatformService();
         private ExamineProjectItemCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
@@ -34,6 +35,7 @@ namespace Clean_CaDET.Commands
 
         private void ShowMenuCommandIfCSFileSelected(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             // get the menu that fired the event
             if (sender is OleMenuCommand menuCommand)
             {
@@ -133,18 +135,19 @@ namespace Clean_CaDET.Commands
         }
         private async void Execute(object sender, EventArgs e)
         {
-            CaDETClassDTO metrics = await _service.SendClassCodeAsync(_selectedFilePath);
-            string message =
-                $"Class name: {metrics.FullName}, LCOM {metrics.LCOM}, LOC {metrics.LOC}, WMC {metrics.WMC}";
-            string title = "ExamineProjectItemCommand";
+            ClassQualityAnalysisResponse codeQualityAnalysis = await _service.AnalyzeClassQualityAsync(_selectedFilePath);
 
-            VsShellUtilities.ShowMessageBox(
-                _package,
-                message,
-                title,
-                OLEMSGICON.OLEMSGICON_INFO,
-                OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
+            if (window?.Frame == null)
+            {
+                throw new NotSupportedException("Cannot create tool window");
+            }
+
+            var tutoringWindow = window as TutoringWindow;
+            tutoringWindow?.UpdateVMContent(codeQualityAnalysis.Content, codeQualityAnalysis.Metrics);
+
+            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+            ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
     }
 }

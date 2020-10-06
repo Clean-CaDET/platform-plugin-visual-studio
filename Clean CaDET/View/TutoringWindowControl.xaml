@@ -7,23 +7,37 @@
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-             Name="MyToolWindow">
-    <Grid>
-        <StackPanel Orientation="Vertical">
-            <TextBlock Margin="10" HorizontalAlignment="Center">TutoringWindow</TextBlock>
-            <Button Content="Click me!" Click="GetEducationalContent" Width="120" Height="80" Name="button1"/>
-            <ListView Height="100" Name="lvDataBinding">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel>
-                            <TextBlock Text="URL: "/>
-                            <TextBlock Text="{Binding Url}"/>
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Content="Test code" Click="SendCode" Width="120" Height="80" Name="button2"/>
-        </StackPanel>
+             d:DesignHeight="600" d:DesignWidth="900"
+             Name="TutoringWindow">
+    <UserControl.Resources>
+        <Style x:Key="SelectableTextBox" TargetType="TextBox">
+            <Setter Property = "Padding" Value = "10 10 30 10" />
+            <Setter Property = "TextWrapping" Value = "Wrap" />
+            <Setter Property = "IsReadOnly" Value = "True" />
+            <Setter Property = "BorderThickness" Value = "0" />
+            <Setter Property = "Background" Value = "Transparent" />
+        </Style>
+        <Style x:Key = "TextContentStyle" TargetType = "TextBox" BasedOn="{StaticResource SelectableTextBox}">
+            <Setter Property = "TextAlignment" Value = "Justify" />
+            <Setter Property = "FontSize" Value = "14" />
+        </Style>
+        <Style x:Key = "TitleContentStyle" TargetType = "TextBox" BasedOn="{StaticResource SelectableTextBox}">
+            <Setter Property = "TextAlignment" Value = "Center" />
+            <Setter Property = "FontFamily" Value = "Helvetica" />
+            <Setter Property = "FontSize" Value = "24" />
+            <Setter Property = "FontWeight" Value = "Bold" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Name="TutorGrid">
+        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
+            <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" Orientation="Vertical" CanVerticallyScroll="True">
+                <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
+                <TextBox Text="{Binding Content.GeneralDescription}" Style="{StaticResource TextContentStyle}"/>
+                <TextBox Text="{Binding Content.DetectedIssue}" Style="{StaticResource TextContentStyle}"/>
+                <Image Source="{Binding Content.Image}"/>
+                <TextBox Text="{Binding Content.Recommendations}" Style="{StaticResource TextContentStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

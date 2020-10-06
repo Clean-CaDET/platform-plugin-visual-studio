@@ -12,11 +12,11 @@ namespace Clean_CaDET.View
 
         public static readonly Guid CommandSet = new Guid("e950531b-e655-48b1-8c63-ac3526bdbb54");
 
-        private readonly AsyncPackage package;
+        private readonly AsyncPackage _package;
 
         private TutoringWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -30,7 +30,7 @@ namespace Clean_CaDET.View
             private set;
         }
 
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => package;
+        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => _package;
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
@@ -44,7 +44,7 @@ namespace Clean_CaDET.View
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            ToolWindowPane window = this.package.FindToolWindow(typeof(TutoringWindow), 0, true);
+            ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
             if (window?.Frame == null)
             {
                 throw new NotSupportedException("Cannot create tool window");

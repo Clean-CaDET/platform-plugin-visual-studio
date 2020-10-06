@@ -1,6 +1,6 @@
 ﻿namespace Clean_CaDET.Model.DTOs
 {
-    public class CaDETClassDTO
+    public class ClassMetricsDTO
     {
         public string FullName;
         public string LOC;

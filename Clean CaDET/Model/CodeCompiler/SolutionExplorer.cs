@@ -12,7 +12,7 @@ namespace Clean_CaDET.Model.CodeCompiler
 {
     class SolutionExplorer
     {
-        public async Task<string> FindClassCode(string filePath)
+        public async Task<string> FindClassCodeAsync(string filePath)
         {
             Solution solution = GetBaseSolution();
             foreach (var project in solution.Projects)
