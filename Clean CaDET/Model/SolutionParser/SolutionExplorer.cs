@@ -1,14 +1,15 @@
-﻿using Clean_CaDET.Model.CodeCompiler.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Clean_CaDET.Model.SolutionParser.Data;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Clean_CaDET.Model.CodeCompiler
+namespace Clean_CaDET.Model.SolutionParser
 {
     class SolutionExplorer
     {
@@ -25,15 +26,15 @@ namespace Clean_CaDET.Model.CodeCompiler
             return null;
         }
 
-        public async Task<CaDETSolution> CompileBaseSolutionAsync()
+        public async Task<CSharpSolution> CompileBaseSolutionAsync()
         {
             Solution solution = GetBaseSolution();
-            List<CaDETProject> compiledProjects = new List<CaDETProject>();
+            List<CSharpProject> compiledProjects = new List<CSharpProject>();
             foreach(Project project in solution.Projects)
             {
                 compiledProjects.Add(await CompileProjectAsync(project));
             }
-            return new CaDETSolution(solution.FilePath, compiledProjects);
+            return new CSharpSolution(compiledProjects);
         }
 
         private Solution GetBaseSolution()
@@ -43,20 +44,20 @@ namespace Clean_CaDET.Model.CodeCompiler
             return workspace.CurrentSolution;
         }
 
-        private async Task<CaDETProject> CompileProjectAsync(Project project)
+        private async Task<CSharpProject> CompileProjectAsync(Project project)
         {
-            List<CaDETDocument> compiledDocuments = new List<CaDETDocument>();
+            List<CSharpDocument> compiledDocuments = new List<CSharpDocument>();
             foreach (Document document in project.Documents)
             {
                 compiledDocuments.Add(await CompileDocumentAsync(document));
             }
-            return new CaDETProject(project.Name, compiledDocuments);
+            return new CSharpProject(new Guid(), compiledDocuments);
         }
 
-        private async Task<CaDETDocument> CompileDocumentAsync(Document document)
+        private async Task<CSharpDocument> CompileDocumentAsync(Document document)
         {
             SourceText sourceCode = await document.GetTextAsync();
-            return new CaDETDocument(document.Name, sourceCode.ToString());
+            return new CSharpDocument(document.Name, sourceCode.ToString());
         }
     }
 }

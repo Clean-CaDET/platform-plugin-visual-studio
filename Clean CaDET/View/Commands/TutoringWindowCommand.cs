@@ -1,17 +1,15 @@
-﻿using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace Clean_CaDET.View
+namespace Clean_CaDET.View.Commands
 {
     internal sealed class TutoringWindowCommand
     {
         public const int CommandId = 0x0100;
-
         public static readonly Guid CommandSet = new Guid("e950531b-e655-48b1-8c63-ac3526bdbb54");
-
         private readonly AsyncPackage _package;
 
         private TutoringWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
@@ -20,7 +18,7 @@ namespace Clean_CaDET.View
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuItem = new MenuCommand(Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 

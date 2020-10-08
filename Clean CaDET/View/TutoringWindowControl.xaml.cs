@@ -2,7 +2,7 @@
 using Clean_CaDET.View.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using Clean_CaDET.Model.DTOs;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
 
 namespace Clean_CaDET.View
 {

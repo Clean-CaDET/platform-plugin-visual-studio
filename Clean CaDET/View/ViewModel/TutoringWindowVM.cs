@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Clean_CaDET.Model.DTOs;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
 
 namespace Clean_CaDET.View.ViewModel
 {

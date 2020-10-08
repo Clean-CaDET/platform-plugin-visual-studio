@@ -1,16 +1,15 @@
-﻿using Clean_CaDET.Model;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.InteropServices;
-using Clean_CaDET.Model.DTOs;
-using Clean_CaDET.View;
+using Clean_CaDET.Model;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace Clean_CaDET.Commands
+namespace Clean_CaDET.View.Commands
 {
     internal sealed class ExamineProjectItemCommand
     {
@@ -26,7 +25,6 @@ namespace Clean_CaDET.Commands
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
-            //var menuItem = new MenuCommand(this.Execute, menuCommandID);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
             menuItem.BeforeQueryStatus += ShowMenuCommandIfCSFileSelected;
 
@@ -61,7 +59,7 @@ namespace Clean_CaDET.Commands
             }
         }
 
-        public static bool IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out uint itemid)
+        private bool IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out uint itemid)
         {
             hierarchy = null;
             itemid = VSConstants.VSITEMID_NIL;
@@ -81,15 +79,12 @@ namespace Clean_CaDET.Commands
 
                 if (ErrorHandler.Failed(hr) || hierarchyPtr == IntPtr.Zero || itemid == VSConstants.VSITEMID_NIL)
                 {
-                    // there is no selection
-                    return false;
+                    return false; // there is no selection
                 }
 
-                // multiple items are selected
-                if (multiItemSelect != null) return false;
+                if (multiItemSelect != null) return false; // multiple items are selected
 
                 // there is a hierarchy root node selected, thus it is not a single item inside a project
-
                 if (itemid == VSConstants.VSITEMID_ROOT) return false;
 
                 hierarchy = Marshal.GetObjectForIUnknown(hierarchyPtr) as IVsHierarchy;
@@ -101,7 +96,6 @@ namespace Clean_CaDET.Commands
                 {
                     return false; // hierarchy is not a project inside the Solution if it does not have a ProjectID Guid
                 }
-
                 // if we got this far then there is a single project item selected
                 return true;
             }
@@ -111,7 +105,6 @@ namespace Clean_CaDET.Commands
                 {
                     Marshal.Release(selectionContainerPtr);
                 }
-
                 if (hierarchyPtr != IntPtr.Zero)
                 {
                     Marshal.Release(hierarchyPtr);

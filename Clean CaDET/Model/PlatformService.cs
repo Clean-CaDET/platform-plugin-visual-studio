@@ -1,26 +1,25 @@
-﻿using Clean_CaDET.Model.CodeCompiler;
-using Clean_CaDET.Model.DTOs;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
+﻿using Clean_CaDET.Model.PlatformConnection;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
+using Clean_CaDET.Model.SolutionParser;
 using System.Threading.Tasks;
 
 namespace Clean_CaDET.Model
 {
     public sealed class PlatformService
     {
-        private readonly HttpClient _httpClient = new HttpClient();
-        private readonly SolutionExplorer _explorer = new SolutionExplorer();
-        private readonly string codeUrl = "https://localhost:44325/api/repository/education/class";
+        private readonly SolutionExplorer _explorer;
+        private readonly IPlatformConnection _platformConnection;
+        //TODO: DI
+        public PlatformService()
+        {
+            _explorer = new SolutionExplorer();
+            _platformConnection = new CaDETConnection();
+        }
 
         public async Task<ClassQualityAnalysisResponse> AnalyzeClassQualityAsync(string classPath)
         {
             string sourceCode = await _explorer.FindClassCodeAsync(classPath);
-
-            StringContent request = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _httpClient.PostAsync(codeUrl, request);
-            string content = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(content);
+            return await _platformConnection.GetClassQualityAnalysisAsync(sourceCode);
         }
     }
 }

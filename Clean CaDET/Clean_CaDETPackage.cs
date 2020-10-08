@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Clean_CaDET.View.Commands;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
@@ -17,8 +18,8 @@ namespace Clean_CaDET
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await View.TutoringWindowCommand.InitializeAsync(this);
-            await Clean_CaDET.Commands.ExamineProjectItemCommand.InitializeAsync(this);
+            await TutoringWindowCommand.InitializeAsync(this);
+            await ExamineProjectItemCommand.InitializeAsync(this);
         }
     }
 }

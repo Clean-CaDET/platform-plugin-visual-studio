@@ -1,6 +1,6 @@
-﻿using Clean_CaDET.Model.DTOs;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using System.Runtime.InteropServices;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
 
 namespace Clean_CaDET.View
 {

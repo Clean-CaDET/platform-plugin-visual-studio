@@ -1,4 +1,4 @@
-﻿namespace Clean_CaDET.Model.DTOs
+﻿namespace Clean_CaDET.Model.PlatformConnection.DTOs
 {
     public class ClassQualityAnalysisResponse
     {

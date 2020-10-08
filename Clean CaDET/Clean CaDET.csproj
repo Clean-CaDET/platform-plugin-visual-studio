@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,18 +44,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\ExamineProjectItemCommand.cs" />
-    <Compile Include="Model\CodeCompiler\Data\CaDETModel.cs" />
-    <Compile Include="Model\CodeCompiler\Data\CaDETProject.cs" />
-    <Compile Include="Model\CodeCompiler\Data\CaDETDocument.cs" />
-    <Compile Include="Model\CodeCompiler\Data\CaDETSolution.cs" />
-    <Compile Include="Model\CodeCompiler\SolutionExplorer.cs" />
-    <Compile Include="Model\Data\EduContent\EduSnippet.cs" />
-    <Compile Include="Model\DTOs\ClassMetricsDTO.cs" />
-    <Compile Include="Model\DTOs\ClassQualityAnalysisResponse.cs" />
-    <Compile Include="Model\DTOs\EducationalContentDTO.cs" />
+    <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
+    <Compile Include="View\Commands\ExamineProjectItemCommand.cs" />
+    <Compile Include="Model\SolutionParser\Data\CSharpProject.cs" />
+    <Compile Include="Model\SolutionParser\Data\CSharpDocument.cs" />
+    <Compile Include="Model\SolutionParser\Data\CSharpSolution.cs" />
+    <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\ClassMetricsDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\ClassQualityAnalysisResponse.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\EducationalContentDTO.cs" />
+    <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
     <Compile Include="Model\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clean_CaDETPackage.cs" />
@@ -63,13 +65,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
-    <Compile Include="Commands\Clean_CaDETPackage.cs">
+    <Compile Include="View\Commands\Clean_CaDETPackage.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Clean_CaDETPackage.vsct</DependentUpon>
     </Compile>
     <Compile Include="View\TutoringWindow.cs" />
-    <Compile Include="Commands\TutoringWindowCommand.cs" />
+    <Compile Include="View\Commands\TutoringWindowCommand.cs" />
     <Compile Include="View\TutoringWindowControl.xaml.cs">
       <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
     </Compile>
@@ -121,12 +123,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="Commands\Clean_CaDETPackage.vsct">
+    <VSCTCompile Include="View\Commands\Clean_CaDETPackage.vsct">
       <Generator>VsctGenerator</Generator>
       <ResourceName>Menus.ctmenu</ResourceName>
       <LastGenOutput>Clean_CaDETPackage.cs</LastGenOutput>
     </VSCTCompile>
-    <Content Include="Commands\Resources\cadet.png" />
+    <Content Include="View\Resources\cadet.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
