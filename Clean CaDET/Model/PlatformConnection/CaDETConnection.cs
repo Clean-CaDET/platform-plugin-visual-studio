@@ -17,6 +17,8 @@ namespace Clean_CaDET.Model.PlatformConnection
             StringContent request = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(codeUrl, request);
             string content = await response.Content.ReadAsStringAsync();
+            //TODO: Delete this print 
+            System.Diagnostics.Debug.WriteLine(content);
             return JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(content);
         }
     }
