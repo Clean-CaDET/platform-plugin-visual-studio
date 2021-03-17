@@ -1,4 +1,6 @@
-﻿using Clean_CaDET.Model;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using Clean_CaDET.Model;
 using Clean_CaDET.View.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +29,40 @@ namespace Clean_CaDET.View
                         "Our analysis shows that this class has low cohesion. This signals that there might be two or more concepts represented by this class. Looking at the figure, we see how the class can be split into three classes, each containing a method and related field. Importantly, we presume the methods are not accessors (getters and setters).",
                     Recommendations =
                         "See if you can split the class by grouping the fields (or their subset) with methods that utilize them. If you can find suitable names for the two groups than you should perform the Extract Class refactoring. If one group is hard to define and sufficiently large, this might mean you have even more classes to extract."
-                }
+                },
+                NewContent = new NewEducationContentDTO()
+                {
+                    ContentDifficulty = 4,
+                    ContentQuality = 3,
+                    EducationSnippets = new ObservableCollection<NewEducationSnippetDTO>()
+                    {
+                        new NewEducationSnippetDTO()
+                        {
+                            SnippetType = SnippetType.ShortText,
+                            Content = "Some short text",
+                            SnippetDifficulty = 3,
+                            SnippetQuality = 2,
+                            Tags = new List<Tag>()
+                            {
+                                Model.PlatformConnection.DTOs.Tag.Funny,
+                                Model.PlatformConnection.DTOs.Tag.Interesting
+                            }
+                        },
+                        new NewEducationSnippetDTO()
+                        {
+                            SnippetType = SnippetType.ShortText,
+                            Content = "Some must know short text",
+                            SnippetDifficulty = 5,
+                            SnippetQuality = 5,
+                            Tags = new List<Tag>()
+                            {
+                               Model.PlatformConnection.DTOs.Tag.MustKnow
+                            }
+                        }
+                    }
+                }   
+
+
             };
             
             DataContext = ViewModel;

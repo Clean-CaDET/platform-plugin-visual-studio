@@ -47,6 +47,10 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\PlatformConnection\DTOs\NewEducationContentDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\NewEducationSnippetDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\SnippetType.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\Tag.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
     <Compile Include="View\Commands\ExamineProjectItemCommand.cs" />
     <Compile Include="Model\SolutionParser\Data\CSharpProject.cs" />

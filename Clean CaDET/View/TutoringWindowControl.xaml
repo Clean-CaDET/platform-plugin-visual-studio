@@ -37,6 +37,44 @@
                 <TextBox Text="{Binding Content.DetectedIssue}" Style="{StaticResource TextContentStyle}"/>
                 <Image Source="{Binding Content.Image}"/>
                 <TextBox Text="{Binding Content.Recommendations}" Style="{StaticResource TextContentStyle}"/>
+
+                <Label Content="Content Difficulty" 
+                       Margin="40 10 10 10"
+                ></Label>
+                <TextBox Text="{Binding NewContent.ContentDifficulty}"
+                         Style="{StaticResource TextContentStyle}"
+                         Margin="40 10 10 10"
+                         />
+                <Label Content="Content Quality" 
+                       Margin="40 10 10 10"
+                ></Label>
+                <TextBox Text="{Binding NewContent.ContentQuality}"
+                         Style="{StaticResource TextContentStyle}"
+                         Margin="40 10 10 10"
+                         />
+                
+                <DataGrid
+                    x:Name="dataGridEducationSnippets"
+                    ItemsSource="{Binding NewContent.EducationSnippets}"
+                    AutoGenerateColumns="False" 
+                    SelectionMode="Single" 
+                    IsReadOnly="True"
+                    Margin="0, 0, 0, 0" 
+                    HorizontalAlignment="Center"                 
+                    Height="340"
+                    Width="602" 
+                    Background="#FF226397"
+                    >
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Content}" Header="Content"/>
+                        <DataGridTextColumn Binding="{Binding SnippetDifficulty}" Header="Snippet Difficulty"/>
+                        <DataGridTextColumn Binding="{Binding SnippetQuality}" Header="Snippet Quality"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
