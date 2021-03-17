@@ -50,8 +50,8 @@ namespace Clean_CaDET.View
                         },
                         new NewEducationSnippetDTO()
                         {
-                            SnippetType = SnippetType.ShortText,
-                            Content = "Some must know short text",
+                            SnippetType = SnippetType.LongText,
+                            Content = "Some must know long text",
                             SnippetDifficulty = 5,
                             SnippetQuality = 5,
                             Tags = new List<Tag>()
