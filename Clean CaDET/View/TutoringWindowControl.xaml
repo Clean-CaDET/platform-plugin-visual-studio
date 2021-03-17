@@ -52,27 +52,28 @@
                          Style="{StaticResource TextContentStyle}"
                          Margin="40 10 10 10"
                          />
-                
-                <DataGrid
-                    x:Name="dataGridEducationSnippets"
-                    ItemsSource="{Binding NewContent.EducationSnippets}"
-                    AutoGenerateColumns="False" 
-                    SelectionMode="Single" 
-                    IsReadOnly="True"
-                    Margin="0, 0, 0, 0" 
-                    HorizontalAlignment="Center"                 
-                    Height="340"
-                    Width="602" 
-                    Background="#FF226397"
-                    >
+                <StackPanel
+                    Margin="20 0"
+                >
+                    <ItemsControl
+                        ItemsSource="{Binding NewContent.EducationSnippets}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate
+                                >
 
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Content}" Header="Content"/>
-                        <DataGridTextColumn Binding="{Binding SnippetDifficulty}" Header="Snippet Difficulty"/>
-                        <DataGridTextColumn Binding="{Binding SnippetQuality}" Header="Snippet Quality"/>
-                    </DataGrid.Columns>
+                                <TextBox> from data template </TextBox>
+                            </DataTemplate>
 
-                </DataGrid>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+
+
 
 
             </StackPanel>
