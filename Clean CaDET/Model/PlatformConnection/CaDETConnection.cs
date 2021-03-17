@@ -15,15 +15,15 @@ namespace Clean_CaDET.Model.PlatformConnection
 
         public async Task<ClassQualityAnalysisResponse> GetClassQualityAnalysisAsync(string sourceCode)
         {
-            StringContent requestRepositoryCompiler = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
-            HttpResponseMessage responseRepositoryCompiler = await _httpClient.PostAsync(codeUrlRepositoryCompiler, requestRepositoryCompiler);
-            string contentRepositoryCompiler = await responseRepositoryCompiler.Content.ReadAsStringAsync();
+            //StringContent requestRepositoryCompiler = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
+            //HttpResponseMessage responseRepositoryCompiler = await _httpClient.PostAsync(codeUrlRepositoryCompiler, requestRepositoryCompiler);
+            //string contentRepositoryCompiler = await responseRepositoryCompiler.Content.ReadAsStringAsync();
 
             StringContent requestSmartTutor = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
             HttpResponseMessage responseSmartTutor = await _httpClient.PostAsync(codeUrlSmartTutor, requestSmartTutor);
             string contentSmartTutor = await responseSmartTutor.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentRepositoryCompiler);
+            return JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentSmartTutor);
         }
 
 

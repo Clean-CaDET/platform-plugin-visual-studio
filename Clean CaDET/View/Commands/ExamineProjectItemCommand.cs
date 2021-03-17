@@ -137,7 +137,7 @@ namespace Clean_CaDET.View.Commands
             }
 
             var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVMContent(codeQualityAnalysis.Content, codeQualityAnalysis.Metrics);
+            tutoringWindow?.UpdateVMContent(codeQualityAnalysis.NewContent);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());
