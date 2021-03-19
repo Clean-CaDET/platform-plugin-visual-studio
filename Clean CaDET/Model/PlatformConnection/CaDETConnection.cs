@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Clean_CaDET.Model.PlatformConnection.DTOs;
@@ -15,17 +16,32 @@ namespace Clean_CaDET.Model.PlatformConnection
 
         public async Task<ClassQualityAnalysisResponse> GetClassQualityAnalysisAsync(string sourceCode)
         {
-            //StringContent requestRepositoryCompiler = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
-            //HttpResponseMessage responseRepositoryCompiler = await _httpClient.PostAsync(codeUrlRepositoryCompiler, requestRepositoryCompiler);
-            //string contentRepositoryCompiler = await responseRepositoryCompiler.Content.ReadAsStringAsync();
+            StringContent requestRepositoryCompiler = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
+            HttpResponseMessage responseRepositoryCompiler = await _httpClient.PostAsync(codeUrlRepositoryCompiler, requestRepositoryCompiler);
+            string contentRepositoryCompiler = await responseRepositoryCompiler.Content.ReadAsStringAsync();
 
-            StringContent requestSmartTutor = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
+            ClassQualityAnalysisResponse repositoryCompilerResponse = JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentRepositoryCompiler);
+
+            var bytes = new Byte[16];
+            var EmptyGuid = new Guid(bytes);
+
+            ClassQualityAnalysisResponse analysis = await SendRequestToSmartTutor(repositoryCompilerResponse);
+
+            while (analysis.Id.Equals(EmptyGuid))
+            { // TODO: Check edge case when we do not have a issue and content for developer
+                analysis = await SendRequestToSmartTutor(repositoryCompilerResponse);
+            } 
+            return analysis;
+        }
+
+        private async Task<ClassQualityAnalysisResponse> SendRequestToSmartTutor(ClassQualityAnalysisResponse repositoryCompilerResponse)
+        {
+            StringContent requestSmartTutor = new StringContent(JsonConvert.SerializeObject(repositoryCompilerResponse.Id), Encoding.UTF8, "application/json");
             HttpResponseMessage responseSmartTutor = await _httpClient.PostAsync(codeUrlSmartTutor, requestSmartTutor);
             string contentSmartTutor = await responseSmartTutor.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentSmartTutor);
+            var analysis = JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentSmartTutor);
+            return analysis;
         }
-
-
     }
 }
