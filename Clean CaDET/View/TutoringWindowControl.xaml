@@ -29,36 +29,29 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Name="TutorGrid">
+    <Grid Background="#DBE4EE" Name="TutorGrid">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" Orientation="Vertical" CanVerticallyScroll="True">
                 <!-- Education content START -->
-                <StackPanel
-                    Margin="20 20"
-                    Background="AliceBlue"
-                    Width="600"
-                >
+                <StackPanel Margin="20 20"  Width="600">
                     <!-- Content description START -->
-                    <StackPanel Margin="15 5 5 5" Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal">
                         <TextBlock Text="Content Difficulty"></TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding NewContent.ContentDifficulty}" Margin="10 0 0 0"></TextBox>
-                        <Decorator Width="100"></Decorator>
-                        <TextBlock  Text="Content Quality"></TextBlock>
+                        <Decorator Width="50"></Decorator>
+                        <TextBlock  Text="Content Quality" ></TextBlock>
                         <TextBox IsEnabled="False" Text="{Binding NewContent.ContentQuality}" Margin="10 0 0 0"></TextBox>
                     </StackPanel>
                     <!-- Content description END -->
 
                     <!-- Education Snippets START -->
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                         >
-                        <ItemsControl
-                            ItemsSource="{Binding NewContent.EducationSnippets}">
+                        <ItemsControl ItemsSource="{Binding NewContent.EducationSnippets}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <!-- Snippet START -->
-                                    <Border BorderBrush="Gainsboro" CornerRadius="5" BorderThickness="1" Width="300" Margin="10" >
+                                    <Border BorderBrush="#054A91" CornerRadius="5" BorderThickness="1" Width="300" Margin="10" >
                                         <StackPanel>
                                             <!-- Snippet Type START -->
                                             <StackPanel Margin="25 10 25 0" Orientation="Horizontal">
@@ -68,9 +61,9 @@
                                             <!-- Snippet Type END -->
 
                                             <!-- Snippet Content START -->
-                                            <Border Background="Gainsboro" Width="250" Margin="10" Height="150" CornerRadius="5">
+                                            <Border Background="#81A4CD" Width="250" Margin="10" MinHeight="150" CornerRadius="5">
                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding Content}"></TextBlock>
+                                                    <TextBlock Foreground="White" Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
                                                 </StackPanel>
                                             </Border>
                                             <!-- Snippet Content END -->
@@ -94,9 +87,9 @@
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
-                                                            <Border Background="Gainsboro" Margin="25 3 0 10" Height="30" CornerRadius="5">
+                                                            <Border Background="#3E7CB1" Margin="25 3 0 10" Height="30" CornerRadius="5">
                                                                 <StackPanel HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Orientation="Horizontal">
-                                                                    <TextBlock  Text="{Binding}"></TextBlock>
+                                                                    <TextBlock Foreground="White"  Text="{Binding}"></TextBlock>
                                                                 </StackPanel>
                                                             </Border>
                                                         </DataTemplate>
