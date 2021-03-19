@@ -66,6 +66,7 @@
                                                     <TextBlock Foreground="White" Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
                                                 </StackPanel>
                                             </Border>
+                                            <Image Source="{Binding Content}"/>
                                             <!-- Snippet Content END -->
 
                                             <!-- Difficulty & Quality START -->
