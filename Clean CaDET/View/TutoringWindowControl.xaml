@@ -62,8 +62,9 @@
 
                                             <!-- Snippet Content START -->
                                             <Border Background="#81A4CD" Width="250" Margin="10" MinHeight="150" CornerRadius="5">
-                                                <Grid Height="Auto" Margin="2,5,2,5">
-                                                    <TextBlock Foreground="White" Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBlock>
+                                                <Grid Height="Auto" Margin="7" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!--<TextBox  Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBox>-->
+                                                    <TextBox Foreground="White" Background="Transparent" BorderThickness="0" Text="{Binding Content, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" />
                                                     <Image Source="{Binding Content}" Stretch="Fill"/>
                                                 </Grid>
                                             </Border>
