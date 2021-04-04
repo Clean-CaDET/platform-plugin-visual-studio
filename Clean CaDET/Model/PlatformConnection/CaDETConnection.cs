@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,35 +28,30 @@ namespace Clean_CaDET.Model.PlatformConnection
 
             ClassQualityAnalysisResponse repositoryCompilerResponse = JsonConvert.DeserializeObject<ClassQualityAnalysisResponse>(contentRepositoryCompiler);
 
-            var bytes = new Byte[16];
-            var EmptyGuid = new Guid(bytes);
+            
 
             ClassQualityAnalysisResponse analysis = await SendRequestToSmartTutor(repositoryCompilerResponse);
 
-            sentRequests.Add(repositoryCompilerResponse.Id);
-            recivedRequests.Add(analysis.Id);
+            var EmptyGuid = new Guid(new Byte[16]);
+            Guid sentRequest = repositoryCompilerResponse.Id;
+            Guid recivedRequest = analysis.Id;
 
-            while (analysis.Id.Equals(EmptyGuid) || !(repositoryCompilerResponse.Id.Equals(analysis.Id)))
-            { // TODO: Check edge case when we do not have a issue and content for developer
+            sentRequests.Add(sentRequest);
+            recivedRequests.Add(recivedRequest);
+
+            while (recivedRequest.Equals(EmptyGuid) || !(sentRequest.Equals(recivedRequest)))
+            { 
                 analysis = await SendRequestToSmartTutor(repositoryCompilerResponse);
             }
 
-            System.Diagnostics.Debug.WriteLine(sentRequests);
 
-            System.Diagnostics.Debug.WriteLine("POSLATEEEEEEEEEE");
-            int counter = 0;
-            foreach (Guid guid in sentRequests){
-                counter++;
-                System.Diagnostics.Debug.WriteLine(counter);
-                System.Diagnostics.Debug.WriteLine(guid);
-            }
-            System.Diagnostics.Debug.WriteLine("PRIMLJENEEEEEEE");
-            counter = 0;
-            foreach (Guid guid in recivedRequests)
+            if (sentRequests.All(recivedRequests.Contains) && sentRequests.Count == recivedRequests.Count)
             {
-                counter++;
-                System.Diagnostics.Debug.WriteLine(counter);
-                System.Diagnostics.Debug.WriteLine(guid);
+                System.Diagnostics.Debug.WriteLine("All sent messages have arrived");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Not all sent messages have arrived");
             }
 
             return analysis;

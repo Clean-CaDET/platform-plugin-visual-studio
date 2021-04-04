@@ -128,8 +128,9 @@ namespace Clean_CaDET.View.Commands
         }
         private async void Execute(object sender, EventArgs e)
         {
-            for (int i = 0; i < 50; i++)
-            {
+          /*  Uncomment this for loop if you want to test sending more than one request*/
+/*            for (int i = 0; i < 100; i++)
+            {*/
                 ClassQualityAnalysisResponse codeQualityAnalysis = await _service.AnalyzeClassQualityAsync(_selectedFilePath);
 
                 ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
@@ -143,7 +144,7 @@ namespace Clean_CaDET.View.Commands
 
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 ErrorHandler.ThrowOnFailure(windowFrame.Show());
-            }
+/*            }*/
         }
     }
 }
