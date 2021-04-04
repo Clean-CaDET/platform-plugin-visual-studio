@@ -128,19 +128,23 @@ namespace Clean_CaDET.View.Commands
         }
         private async void Execute(object sender, EventArgs e)
         {
-            ClassQualityAnalysisResponse codeQualityAnalysis = await _service.AnalyzeClassQualityAsync(_selectedFilePath);
+          /*  Uncomment this for loop if you want to test sending more than one request*/
+/*            for (int i = 0; i < 100; i++)
+            {*/
+                ClassQualityAnalysisResponse codeQualityAnalysis = await _service.AnalyzeClassQualityAsync(_selectedFilePath);
 
-            ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
-            if (window?.Frame == null)
-            {
-                throw new NotSupportedException("Cannot create tool window");
-            }
+                ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
+                if (window?.Frame == null)
+                {
+                    throw new NotSupportedException("Cannot create tool window");
+                }
 
-            var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVMContent(codeQualityAnalysis.Content, codeQualityAnalysis.Metrics);
+                var tutoringWindow = window as TutoringWindow;
+                tutoringWindow?.UpdateVMContent(codeQualityAnalysis.NewContent);
 
-            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
-            ErrorHandler.ThrowOnFailure(windowFrame.Show());
+                IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+                ErrorHandler.ThrowOnFailure(windowFrame.Show());
+/*            }*/
         }
     }
 }

@@ -29,14 +29,96 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Name="TutorGrid">
+    <Grid Background="#DBE4EE" Name="TutorGrid">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" Orientation="Vertical" CanVerticallyScroll="True">
-                <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
-                <TextBox Text="{Binding Content.GeneralDescription}" Style="{StaticResource TextContentStyle}"/>
-                <TextBox Text="{Binding Content.DetectedIssue}" Style="{StaticResource TextContentStyle}"/>
-                <Image Source="{Binding Content.Image}"/>
-                <TextBox Text="{Binding Content.Recommendations}" Style="{StaticResource TextContentStyle}"/>
+                <!-- Education content START -->
+                <StackPanel Margin="20 20"  Width="600">
+                    <!-- Content description START -->
+                    <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal">
+                        <TextBlock Text="Content Difficulty"></TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding NewContent.ContentDifficulty}" Margin="10 0 0 0"></TextBox>
+                        <Decorator Width="50"></Decorator>
+                        <TextBlock  Text="Content Quality" ></TextBlock>
+                        <TextBox IsEnabled="False" Text="{Binding NewContent.ContentQuality}" Margin="10 0 0 0"></TextBox>
+                    </StackPanel>
+                    <!-- Content description END -->
+
+                    <!-- Education Snippets START -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        >
+                        <ItemsControl ItemsSource="{Binding NewContent.EducationSnippets}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <!-- Snippet START -->
+                                    <Border BorderBrush="#054A91" CornerRadius="5" BorderThickness="1" Width="300" Margin="10" >
+                                        <StackPanel>
+                                            <!-- Snippet Type START -->
+                                            <StackPanel Margin="25 10 25 0" Orientation="Horizontal">
+                                                <TextBlock  Text="Snippet Type:"></TextBlock>
+                                                <TextBox IsEnabled="False" Text="{Binding SnippetType}" Margin="5 0 35 0"></TextBox>
+                                            </StackPanel>
+                                            <!-- Snippet Type END -->
+
+                                            <!-- Snippet Content START -->
+                                            <Border Background="#81A4CD" Width="250" Margin="10" MinHeight="150" CornerRadius="5">
+                                                <Grid Height="Auto" Margin="7" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <!--<TextBox  Margin="10" TextWrapping="Wrap" Text="{Binding Content}"></TextBox>-->
+                                                    <TextBox Foreground="White" Background="Transparent" BorderThickness="0" Text="{Binding Content, Mode=OneWay}" IsReadOnly="True" TextWrapping="Wrap" />
+                                                    <Image Source="{Binding Content}" Stretch="Fill"/>
+                                                </Grid>
+                                            </Border>
+                                            <!-- Snippet Content END -->
+
+                                            <!-- Difficulty & Quality START -->
+                                            <StackPanel Margin="25 10 25 20 " Orientation="Horizontal">
+                                                <TextBlock  Text="Snippet Difficulty:"></TextBlock>
+                                                <TextBox IsEnabled="False" Text="{Binding SnippetDifficulty}" Margin="5 0 35 0"></TextBox>
+                                                <TextBlock  Text="Snippet Quality:"></TextBlock>
+                                                <TextBox IsEnabled="False" Text="{Binding SnippetQuality}" Margin="5 0 15 0"></TextBox>
+                                            </StackPanel>
+                                            <!-- Difficulty & Quality END -->
+
+                                            <!-- Tags START -->
+                                            <StackPanel >
+                                                <ItemsControl ItemsSource ="{Binding Tags}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Horizontal"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Border Background="#3E7CB1" Margin="25 3 0 10" Height="30" CornerRadius="5">
+                                                                <StackPanel HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Orientation="Horizontal">
+                                                                    <TextBlock Foreground="White"  Text="{Binding}"></TextBlock>
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                            <!-- Tags END -->
+                                        </StackPanel>
+                                    </Border>
+                                    <!-- Snippet END -->
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                    <!-- Education Snippets END -->
+
+                </StackPanel>
+                <!-- Education content END -->
+
+
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
