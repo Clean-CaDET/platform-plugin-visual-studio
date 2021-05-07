@@ -3,9 +3,9 @@
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
 
-  <Commands package="guidClean_CaDETPackage">
+  <Commands package="guidCCaDETPackage">
 	  <Menus>
-		<Menu guid="guidClean_CaDETPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+		<Menu guid="guidCCExtensionMenu" id="TopLevelMenu" priority="0x700" type="Menu">
 	        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
 	        <Strings>
 	        <ButtonText>Clean CaDET</ButtonText>
@@ -13,24 +13,27 @@
         </Menu>
 	  </Menus>
 	  <Groups>
-		  <Group guid="guidClean_CaDETPackageCmdSet" id="MenuGroup" priority="0x0600">
-			  <Parent guid="guidClean_CaDETPackageCmdSet" id="TopLevelMenu" />
+		  <Group guid="guidCCExtensionMenu" id="MainMenuGroup" priority="0x0600">
+			  <Parent guid="guidCCExtensionMenu" id="TopLevelMenu" />
 		  </Group>
-	      <Group guid="guidClean_CaDETPackageCmdSet1" id="MyMenuGroup" priority="0x0600">
+	      <Group guid="guidCCContextMenu" id="FolderContextGroup" priority="0x0600">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
           </Group>
+		  <Group guid="guidCCContextMenu" id="FileContextGroup" priority="0x0600">
+			  <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+		  </Group>
       </Groups>
 
 	  <Buttons>
-      <Button guid="guidClean_CaDETPackageCmdSet" id="TutoringWindowCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidClean_CaDETPackageCmdSet" id="MenuGroup" />
+      <Button guid="guidCCExtensionMenu" id="TutoringWindowCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidCCExtensionMenu" id="MainMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Tutor</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidClean_CaDETPackageCmdSet1" id="cmdidExamineProjectItemCommand" priority="0x0100" type="Button">
-        <Parent guid="guidClean_CaDETPackageCmdSet1" id="MyMenuGroup" />
+      <Button guid="guidCCContextMenu" id="ChallengeSubmissionCommand" priority="0x0100" type="Button">
+        <Parent guid="guidCCContextMenu" id="FileContextGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
 	    <CommandFlag>DefaultInvisible</CommandFlag>
 		<CommandFlag>DynamicVisibility</CommandFlag>
@@ -46,23 +49,24 @@
   </Commands>
 
   <CommandPlacements>
-	  <CommandPlacement guid="guidClean_CaDETPackageCmdSet1" id="cmdidExamineProjectItemCommand" priority="0x105">
-		  <Parent guid="guidClean_CaDETPackageCmdSet" id="MenuGroup" />
+	  <CommandPlacement guid="guidCCContextMenu" id="ChallengeSubmissionCommand" priority="0x105">
+		  <Parent guid="guidCCContextMenu" id="FolderContextGroup" />
 	  </CommandPlacement>
   </CommandPlacements>
 
   <Symbols>
-    <GuidSymbol name="guidClean_CaDETPackage" value="{549a40ba-7800-435f-8e0f-b0c5ec49fbf3}" />
+    <GuidSymbol name="guidCCaDETPackage" value="{549a40ba-7800-435f-8e0f-b0c5ec49fbf3}" />
 
-    <GuidSymbol name="guidClean_CaDETPackageCmdSet" value="{e950531b-e655-48b1-8c63-ac3526bdbb54}">
+    <GuidSymbol name="guidCCExtensionMenu" value="{e950531b-e655-48b1-8c63-ac3526bdbb54}">
 		<IDSymbol name="TopLevelMenu" value="0x1021" />
-		<IDSymbol name="MenuGroup" value="0x1020" />
+		<IDSymbol name="MainMenuGroup" value="0x1020" />
 		<IDSymbol name="TutoringWindowCommandId" value="0x0100" />
     </GuidSymbol>
   
-    <GuidSymbol value="{42057fd0-5cab-412d-a4f6-4330809ce9ee}" name="guidClean_CaDETPackageCmdSet1">
-      <IDSymbol value="4128" name="MyMenuGroup" />
-      <IDSymbol value="256" name="cmdidExamineProjectItemCommand" />
+    <GuidSymbol name="guidCCContextMenu" value="{42057fd0-5cab-412d-a4f6-4330809ce9ee}">
+      <IDSymbol value="4128" name="FolderContextGroup" />
+      <IDSymbol value="4129" name="FileContextGroup" />
+      <IDSymbol value="256" name="ChallengeSubmissionCommand" />
     </GuidSymbol>
 
 	<GuidSymbol name="guidImages" value="{ec7304be-ae7a-4fe7-83d7-ef2a19d26720}">
