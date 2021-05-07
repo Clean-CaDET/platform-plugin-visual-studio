@@ -15,7 +15,7 @@ namespace Clean_CaDET.View
 
         public void UpdateVmContent(ChallengeEvaluationDTO content)
         {
-            if (Content is TutoringWindowControl windowControl) windowControl.ViewModel.Content = content;
+            if (Content is TutoringWindowControl windowControl) windowControl.ViewModel.UpdateContent(content);
         }
     }
 }

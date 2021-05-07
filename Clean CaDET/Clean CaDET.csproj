@@ -76,6 +76,7 @@
     <Compile Include="View\TutoringWindowControl.xaml.cs">
       <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewModel\ContentVM.cs" />
     <Compile Include="View\ViewModel\TutoringWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +115,6 @@
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.9.1050">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

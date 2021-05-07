@@ -19,7 +19,7 @@ namespace Clean_CaDET.Model
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath)
         {
             var sourceCode = await _explorer.CollectSourceCodeAsync(codePath);
-            return await _platformConnection.SubmitChallengeAsync(sourceCode, 0, 0);
+            return await _platformConnection.SubmitChallengeAsync(sourceCode, 41, 1);
         }
     }
 }

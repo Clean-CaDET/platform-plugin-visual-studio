@@ -33,10 +33,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" Orientation="Vertical" CanVerticallyScroll="True">
                 <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
-                <TextBox Text="{Binding Content.GeneralDescription}" Style="{StaticResource TextContentStyle}"/>
-                <TextBox Text="{Binding Content.DetectedIssue}" Style="{StaticResource TextContentStyle}"/>
-                <Image Source="{Binding Content.Image}"/>
-                <TextBox Text="{Binding Content.Recommendations}" Style="{StaticResource TextContentStyle}"/>
+                <!--Image Source="{Binding Content.Image}"/-->
             </StackPanel>
         </ScrollViewer>
     </Grid>

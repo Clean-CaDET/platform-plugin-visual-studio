@@ -12,7 +12,7 @@ namespace Clean_CaDET.View
         {
             InitializeComponent();
             _platform = new PlatformService();
-            
+            ViewModel = new TutoringWindowVM();
             DataContext = ViewModel;
         }
     }
