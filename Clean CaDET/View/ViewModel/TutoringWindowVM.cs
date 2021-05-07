@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
+using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
 
 namespace Clean_CaDET.View.ViewModel
 {

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
+using System.Collections.Generic;
 
-namespace Clean_CaDET.Model.PlatformConnection.DTOs
+namespace Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation
 {
     public class ChallengeEvaluationDTO
     {

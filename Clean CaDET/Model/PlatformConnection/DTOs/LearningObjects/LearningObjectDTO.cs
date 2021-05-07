@@ -1,4 +1,4 @@
-﻿namespace Clean_CaDET.Model.PlatformConnection.DTOs
+﻿namespace Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects
 {
     public class LearningObjectDTO
     {

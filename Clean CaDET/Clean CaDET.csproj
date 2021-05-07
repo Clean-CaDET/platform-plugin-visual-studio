@@ -47,18 +47,15 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Model\PlatformConnection\DTOs\ChallengeHintDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\ChallengeSubmissionDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\ChallengeEvaluationDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\ImageDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\LearningObjectDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\TextDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\VideoDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeHintDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeSubmissionDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeEvaluationDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\ImageDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\LearningObjectDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\TextDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\VideoDTO.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
     <Compile Include="View\Commands\ExamineProjectItemCommand.cs" />
-    <Compile Include="Model\SolutionParser\Data\CSharpProject.cs" />
-    <Compile Include="Model\SolutionParser\Data\CSharpDocument.cs" />
-    <Compile Include="Model\SolutionParser\Data\CSharpSolution.cs" />
     <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
     <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
     <Compile Include="Model\PlatformService.cs" />
