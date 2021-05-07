@@ -38,7 +38,7 @@
 	    <CommandFlag>DefaultInvisible</CommandFlag>
 		<CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>CaDET Analysis</ButtonText>
+          <ButtonText>Submit Challenge Solution</ButtonText>
         </Strings>
       </Button>
     </Buttons>

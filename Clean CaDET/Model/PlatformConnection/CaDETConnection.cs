@@ -1,4 +1,4 @@
-﻿using Clean_CaDET.Model.PlatformConnection.DTOs;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -15,7 +15,7 @@ namespace Clean_CaDET.Model.PlatformConnection
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId)
         {
             var payload = new ChallengeSubmissionDTO(sourceCode, challengeId, learnerId);
-            StringContent request = new StringContent(JsonConvert.SerializeObject(sourceCode), Encoding.UTF8, "application/json");
+            StringContent request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
             
             HttpResponseMessage response = await _httpClient.PostAsync(baseUrl + "submission/challenge", request);
             string content = await response.Content.ReadAsStringAsync();

@@ -1,5 +1,5 @@
 ﻿using Clean_CaDET.Model.PlatformConnection;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
+using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
 using Clean_CaDET.Model.SolutionParser;
 using System.Threading.Tasks;
 
@@ -16,10 +16,10 @@ namespace Clean_CaDET.Model
             _platformConnection = new CaDETConnection();
         }
 
-        public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string classPath)
+        public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath)
         {
-            string sourceCode = await _explorer.CollectSourceCodeAsync(classPath);
-            return await _platformConnection.SubmitChallengeAsync(new[] { sourceCode}, 0, 0);
+            var sourceCode = await _explorer.CollectSourceCodeAsync(codePath);
+            return await _platformConnection.SubmitChallengeAsync(sourceCode, 0, 0);
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using Microsoft.VisualStudio.Shell;
 using System.Runtime.InteropServices;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
 
 namespace Clean_CaDET.View
 {
     [Guid("0381f46d-804e-4919-ad26-fa160bfee532")]
-    public class TutoringWindow : ToolWindowPane
+    public sealed class TutoringWindow : ToolWindowPane
     {
         public TutoringWindow() : base(null)
         {
@@ -13,10 +13,9 @@ namespace Clean_CaDET.View
             Content = new TutoringWindowControl();
         }
 
-        public void UpdateVMContent(ChallengeEvaluationDTO content)
+        public void UpdateVmContent(ChallengeEvaluationDTO content)
         {
-            var windowControl = Content as TutoringWindowControl;
-            windowControl.ViewModel.Content = content;
+            if (Content is TutoringWindowControl windowControl) windowControl.ViewModel.Content = content;
         }
     }
 }

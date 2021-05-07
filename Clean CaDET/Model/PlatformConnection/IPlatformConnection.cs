@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using System.Threading.Tasks;
 
 namespace Clean_CaDET.Model.PlatformConnection
 {
-    interface IPlatformConnection
+    internal interface IPlatformConnection
     {
         public Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId);
     }

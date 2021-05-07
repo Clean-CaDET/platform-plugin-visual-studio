@@ -1,17 +1,18 @@
 ﻿using Clean_CaDET.Model;
+using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
 using Task = System.Threading.Tasks.Task;
 
 namespace Clean_CaDET.View.Commands
 {
-    internal sealed class ExamineProjectItemCommand
+    internal sealed class SubmitChallengeCommand
     {
         public const int CommandId = 256;
         public static readonly Guid CommandSet = new Guid("42057fd0-5cab-412d-a4f6-4330809ce9ee");
@@ -19,63 +20,70 @@ namespace Clean_CaDET.View.Commands
 
         private string _selectedFilePath;
         private readonly PlatformService _service = new PlatformService();
-        private ExamineProjectItemCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private SubmitChallengeCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
-            //menuItem.BeforeQueryStatus += ShowMenuCommandIfCSFileSelected;
+            menuItem.BeforeQueryStatus += ShowMenuCommandWhenSuitable;
 
             commandService.AddCommand(menuItem);
         }
 
-        private void ShowMenuCommandIfCSFileSelected(object sender, EventArgs e)
+        private void ShowMenuCommandWhenSuitable(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             // get the menu that fired the event
-            if (sender is OleMenuCommand menuCommand)
+            if (!(sender is OleMenuCommand menuCommand)) return;
+
+            // start by assuming that the menu will not be shown
+            menuCommand.Visible = false;
+            menuCommand.Enabled = false;
+
+            IVsHierarchy hierarchy;
+            uint itemid;
+
+            if (!IsSingleProjectItemSelection(out hierarchy, out itemid)) return;
+            // Get the file path
+            ((IVsProject)hierarchy).GetMkDocument(itemid, out _selectedFilePath);
+            var fileInfo = new FileInfo(_selectedFilePath);
+
+            bool isCSFile = fileInfo.Name.EndsWith(".cs");
+            if (isCSFile || IsFolderWithCsFiles(fileInfo.Directory))
             {
-                // start by assuming that the menu will not be shown
-                menuCommand.Visible = false;
-                menuCommand.Enabled = false;
-
-                IVsHierarchy hierarchy;
-                uint itemid;
-
-                if (!IsSingleProjectItemSelection(out hierarchy, out itemid)) return;
-                // Get the file path
-                ((IVsProject)hierarchy).GetMkDocument(itemid, out _selectedFilePath);
-                var transformFileInfo = new FileInfo(_selectedFilePath);
-
-                bool isCSFile = transformFileInfo.Name.EndsWith(".cs");
-                
-                // if not leave the menu hidden
-                if (!isCSFile) return;
-
                 menuCommand.Visible = true;
                 menuCommand.Enabled = true;
             }
         }
 
-        private bool IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out uint itemid)
+        private static bool IsFolderWithCsFiles(DirectoryInfo directoryInfo)
+        {
+            if (directoryInfo == null) return false;
+
+            var fileNames = directoryInfo.GetFiles().Select(f => f.Name);
+            if (fileNames.Any(n => n.EndsWith(".cs"))) return true;
+
+            return directoryInfo.GetDirectories().Any(d => IsFolderWithCsFiles(d));
+        }
+
+        private static bool IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out uint itemid)
         {
             hierarchy = null;
             itemid = VSConstants.VSITEMID_NIL;
-            int hr;
 
             var monitorSelection = Package.GetGlobalService(typeof(SVsShellMonitorSelection)) as IVsMonitorSelection;
             var solution = Package.GetGlobalService(typeof(SVsSolution)) as IVsSolution;
             if (monitorSelection == null || solution == null) return false;
 
-            IVsMultiItemSelect multiItemSelect;
             IntPtr hierarchyPtr = IntPtr.Zero;
             IntPtr selectionContainerPtr = IntPtr.Zero;
 
             try
             {
-                hr = monitorSelection.GetCurrentSelection(out hierarchyPtr, out itemid, out multiItemSelect, out selectionContainerPtr);
+                IVsMultiItemSelect multiItemSelect;
+                var hr = monitorSelection.GetCurrentSelection(out hierarchyPtr, out itemid, out multiItemSelect, out selectionContainerPtr);
 
                 if (ErrorHandler.Failed(hr) || hierarchyPtr == IntPtr.Zero || itemid == VSConstants.VSITEMID_NIL)
                 {
@@ -112,7 +120,7 @@ namespace Clean_CaDET.View.Commands
             }
         }
 
-        public static ExamineProjectItemCommand Instance
+        public static SubmitChallengeCommand Instance
         {
             get;
             private set;
@@ -124,7 +132,7 @@ namespace Clean_CaDET.View.Commands
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new ExamineProjectItemCommand(package, commandService);
+            Instance = new SubmitChallengeCommand(package, commandService);
         }
         private async void Execute(object sender, EventArgs e)
         {
@@ -137,7 +145,7 @@ namespace Clean_CaDET.View.Commands
             }
 
             var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVMContent(challengeEvaluation);
+            tutoringWindow?.UpdateVmContent(challengeEvaluation);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());

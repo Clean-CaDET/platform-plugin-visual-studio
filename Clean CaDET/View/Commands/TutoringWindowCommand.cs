@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.Design;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.ComponentModel.Design;
 using Task = System.Threading.Tasks.Task;
 
 namespace Clean_CaDET.View.Commands
@@ -17,8 +17,8 @@ namespace Clean_CaDET.View.Commands
             _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(Execute, menuCommandID);
+            var menuCommandId = new CommandID(CommandSet, CommandId);
+            var menuItem = new MenuCommand(Execute, menuCommandId);
             commandService.AddCommand(menuItem);
         }
 

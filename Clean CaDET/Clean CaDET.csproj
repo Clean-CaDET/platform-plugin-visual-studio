@@ -55,7 +55,7 @@
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\TextDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\VideoDTO.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
-    <Compile Include="View\Commands\ExamineProjectItemCommand.cs" />
+    <Compile Include="View\Commands\SubmitChallengeCommand.cs" />
     <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
     <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
     <Compile Include="Model\PlatformService.cs" />
