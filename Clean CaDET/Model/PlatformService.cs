@@ -16,10 +16,10 @@ namespace Clean_CaDET.Model
             _platformConnection = new CaDETConnection();
         }
 
-        public async Task<ClassQualityAnalysisResponse> AnalyzeClassQualityAsync(string classPath)
+        public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string classPath)
         {
-            string sourceCode = await _explorer.FindClassCodeAsync(classPath);
-            return await _platformConnection.GetClassQualityAnalysisAsync(sourceCode);
+            string sourceCode = await _explorer.CollectSourceCodeAsync(classPath);
+            return await _platformConnection.SubmitChallengeAsync(new[] { sourceCode}, 0, 0);
         }
     }
 }

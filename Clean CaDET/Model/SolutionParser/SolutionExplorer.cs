@@ -13,7 +13,7 @@ namespace Clean_CaDET.Model.SolutionParser
 {
     class SolutionExplorer
     {
-        public async Task<string> FindClassCodeAsync(string filePath)
+        public async Task<string> CollectSourceCodeAsync(string filePath)
         {
             Solution solution = GetBaseSolution();
             foreach (var project in solution.Projects)

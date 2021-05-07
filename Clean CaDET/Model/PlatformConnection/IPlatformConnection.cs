@@ -5,6 +5,6 @@ namespace Clean_CaDET.Model.PlatformConnection
 {
     interface IPlatformConnection
     {
-        public Task<ClassQualityAnalysisResponse> GetClassQualityAnalysisAsync(string sourceCode);
+        public Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId);
     }
 }

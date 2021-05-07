@@ -4,6 +4,7 @@
         <Identity Id="Clean_CaDET.995f2c75-ae45-4bfe-8752-fe7e747781ea" Version="1.0" Language="en-US" Publisher="nikola.luburic@uns.ac.rs" />
         <DisplayName>Clean CaDET</DisplayName>
         <Description xml:space="preserve">TODO</Description>
+        <Icon>View\Resources\cadet.png</Icon>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

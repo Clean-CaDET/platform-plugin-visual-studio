@@ -13,11 +13,10 @@ namespace Clean_CaDET.View
             Content = new TutoringWindowControl();
         }
 
-        public void UpdateVMContent(EducationalContentDTO content, ClassMetricsDTO metrics)
+        public void UpdateVMContent(ChallengeEvaluationDTO content)
         {
             var windowControl = Content as TutoringWindowControl;
             windowControl.ViewModel.Content = content;
-            windowControl.ViewModel.Metrics = metrics;
         }
     }
 }

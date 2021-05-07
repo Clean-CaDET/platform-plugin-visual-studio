@@ -17,7 +17,7 @@
 			  <Parent guid="guidClean_CaDETPackageCmdSet" id="TopLevelMenu" />
 		  </Group>
 	      <Group guid="guidClean_CaDETPackageCmdSet1" id="MyMenuGroup" priority="0x0600">
-            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+            <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
           </Group>
       </Groups>
 
@@ -44,6 +44,12 @@
       <Bitmap guid="guidImages" href="..\Resources\cadet.png" usedList="bmpPic1" />
     </Bitmaps>
   </Commands>
+
+  <CommandPlacements>
+	  <CommandPlacement guid="guidClean_CaDETPackageCmdSet1" id="cmdidExamineProjectItemCommand" priority="0x105">
+		  <Parent guid="guidClean_CaDETPackageCmdSet" id="MenuGroup" />
+	  </CommandPlacement>
+  </CommandPlacements>
 
   <Symbols>
     <GuidSymbol name="guidClean_CaDETPackage" value="{549a40ba-7800-435f-8e0f-b0c5ec49fbf3}" />

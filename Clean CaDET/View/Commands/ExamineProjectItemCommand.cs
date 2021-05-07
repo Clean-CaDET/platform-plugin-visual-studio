@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.Design;
-using System.IO;
-using System.Runtime.InteropServices;
-using Clean_CaDET.Model;
-using Clean_CaDET.Model.PlatformConnection.DTOs;
+﻿using Clean_CaDET.Model;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.ComponentModel.Design;
+using System.IO;
+using System.Runtime.InteropServices;
+using Clean_CaDET.Model.PlatformConnection.DTOs;
 using Task = System.Threading.Tasks.Task;
 
 namespace Clean_CaDET.View.Commands
@@ -26,7 +26,7 @@ namespace Clean_CaDET.View.Commands
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
-            menuItem.BeforeQueryStatus += ShowMenuCommandIfCSFileSelected;
+            //menuItem.BeforeQueryStatus += ShowMenuCommandIfCSFileSelected;
 
             commandService.AddCommand(menuItem);
         }
@@ -50,7 +50,7 @@ namespace Clean_CaDET.View.Commands
                 var transformFileInfo = new FileInfo(_selectedFilePath);
 
                 bool isCSFile = transformFileInfo.Name.EndsWith(".cs");
-
+                
                 // if not leave the menu hidden
                 if (!isCSFile) return;
 
@@ -128,7 +128,7 @@ namespace Clean_CaDET.View.Commands
         }
         private async void Execute(object sender, EventArgs e)
         {
-            ClassQualityAnalysisResponse codeQualityAnalysis = await _service.AnalyzeClassQualityAsync(_selectedFilePath);
+            ChallengeEvaluationDTO challengeEvaluation = await _service.SubmitChallengeAsync(_selectedFilePath);
 
             ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
             if (window?.Frame == null)
@@ -137,7 +137,7 @@ namespace Clean_CaDET.View.Commands
             }
 
             var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVMContent(codeQualityAnalysis.Content, codeQualityAnalysis.Metrics);
+            tutoringWindow?.UpdateVMContent(challengeEvaluation);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());

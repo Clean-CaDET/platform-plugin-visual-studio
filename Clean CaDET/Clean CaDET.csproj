@@ -47,15 +47,19 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\PlatformConnection\DTOs\ChallengeHintDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\ChallengeSubmissionDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\ChallengeEvaluationDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\ImageDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\LearningObjectDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\TextDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\VideoDTO.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
     <Compile Include="View\Commands\ExamineProjectItemCommand.cs" />
     <Compile Include="Model\SolutionParser\Data\CSharpProject.cs" />
     <Compile Include="Model\SolutionParser\Data\CSharpDocument.cs" />
     <Compile Include="Model\SolutionParser\Data\CSharpSolution.cs" />
     <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\ClassMetricsDTO.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\ClassQualityAnalysisResponse.cs" />
-    <Compile Include="Model\PlatformConnection\DTOs\EducationalContentDTO.cs" />
     <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
     <Compile Include="Model\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,7 +134,10 @@
       <ResourceName>Menus.ctmenu</ResourceName>
       <LastGenOutput>Clean_CaDETPackage.cs</LastGenOutput>
     </VSCTCompile>
-    <Content Include="View\Resources\cadet.png" />
+    <Content Include="View\Resources\cadet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
