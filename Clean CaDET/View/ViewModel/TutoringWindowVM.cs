@@ -5,8 +5,6 @@ namespace Clean_CaDET.View.ViewModel
 {
     public class TutoringWindowVM: INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        //TODO: Should create a ViewModel class eventually, for basic examples this will suffice.
         private ContentVM _content;
         public ContentVM Content
         {
@@ -18,9 +16,9 @@ namespace Clean_CaDET.View.ViewModel
             }
         }
 
-        private void OnPropertyChanged(string propertyName)
+        public TutoringWindowVM()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Content = new ContentVM();
         }
 
         public void UpdateContent(ChallengeEvaluationDTO content)
@@ -29,6 +27,12 @@ namespace Clean_CaDET.View.ViewModel
                 ? "Congratulations, you completed the challenge!"
                 : "Your submission is not yet there.";
             Content = new ContentVM(title, content.ApplicableHints, content.SolutionLO);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

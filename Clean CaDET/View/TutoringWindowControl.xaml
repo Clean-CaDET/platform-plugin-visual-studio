@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0" xmlns:viewmodel="clr-namespace:Clean_CaDET.View.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TutoringWindowVM}"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="900"
-             Name="TutoringWindow">
+             d:DesignHeight="600" d:DesignWidth="900">
     <UserControl.Resources>
         <Style x:Key="SelectableTextBox" TargetType="TextBox">
             <Setter Property = "Padding" Value = "10 10 30 10" />
@@ -31,9 +30,50 @@
 
     <Grid Name="TutorGrid">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
-            <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" Orientation="Vertical" CanVerticallyScroll="True">
+            <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" CanVerticallyScroll="True">
                 <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
-                <!--Image Source="{Binding Content.Image}"/-->
+                <StackPanel Visibility="{Binding Content.HintPanelVisibility}">
+                    <Button Click="ShowHints_OnClick" Visibility="{Binding Content.HintButtonVisibility}">Show Hints</Button>
+                    <StackPanel Visibility="{Binding Content.HintVisibility}">
+                        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" DataContext="{Binding Content}" ItemsSource="{Binding ApplicableHints}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBox Text="{Binding Content}" Style="{StaticResource TextContentStyle}" />
+                                        <WrapPanel Visibility="{Binding LearningObject.TextVisibility}">
+                                            <TextBox Text="{Binding LearningObject.Text}" Style="{StaticResource TextContentStyle}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Visibility="{Binding LearningObject.ImageVisibility}">
+                                            <Image Source="{Binding LearningObject.Url}"/>
+                                            <TextBox Text="{Binding LearningObject.Caption}" Style="{StaticResource TextContentStyle}"/>
+                                        </WrapPanel>
+                                        <WrapPanel Visibility="{Binding LearningObject.VideoVisibility}">
+                                            <TextBox Text="Watch the video located on this URL: " Style="{StaticResource TextContentStyle}"/>
+                                            <TextBox Text="{Binding LearningObject.Url}" Style="{StaticResource TextContentStyle}"/>
+                                        </WrapPanel>
+                                        <TextBox Text="Applicable to:" FontWeight="Bold" Style="{StaticResource TextContentStyle}"/>
+                                        <TextBox Text="{Binding ApplicableTo}" Style="{StaticResource TextContentStyle}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                    <Button Click="ShowSolution_OnClick" Visibility="{Binding Content.SolutionButtonVisibility}">Show Solutions</Button>
+                    <StackPanel Visibility="{Binding Content.SolutionVisibility}">
+                        <WrapPanel Visibility="{Binding Content.Solution.TextVisibility}">
+                            <TextBox Text="{Binding Content.Solution.Text}" Style="{StaticResource TextContentStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Visibility="{Binding Content.Solution.ImageVisibility}">
+                            <Image Source="{Binding Content.Solution.Url}"/>
+                            <TextBox Text="{Binding Content.Solution.Caption}" Style="{StaticResource TextContentStyle}"/>
+                        </WrapPanel>
+                        <WrapPanel Visibility="{Binding Content.Solution.VideoVisibility}">
+                            <TextBox Text="Watch the video located on this URL: " Style="{StaticResource TextContentStyle}"/>
+                            <TextBox Text="{Binding Content.Solution.Url}" Style="{StaticResource TextContentStyle}"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

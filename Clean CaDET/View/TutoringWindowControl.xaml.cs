@@ -1,5 +1,6 @@
 ﻿using Clean_CaDET.Model;
 using Clean_CaDET.View.ViewModel;
+using System.Windows;
 
 namespace Clean_CaDET.View
 {
@@ -14,6 +15,18 @@ namespace Clean_CaDET.View
             _platform = new PlatformService();
             ViewModel = new TutoringWindowVM();
             DataContext = ViewModel;
+        }
+
+        private void ShowHints_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Content.HintVisibility = Visibility.Visible;
+            ViewModel.Content.HintButtonVisibility = Visibility.Collapsed;
+        }
+
+        private void ShowSolution_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Content.SolutionVisibility = Visibility.Visible;
+            ViewModel.Content.SolutionButtonVisibility = Visibility.Collapsed;
         }
     }
 }
