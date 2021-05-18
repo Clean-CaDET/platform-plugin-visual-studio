@@ -1,6 +1,7 @@
 ﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using Clean_CaDET.View.ViewModel;
 
-namespace Clean_CaDET.View.ViewModel
+namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
     public class ChallengeHintVM
     {

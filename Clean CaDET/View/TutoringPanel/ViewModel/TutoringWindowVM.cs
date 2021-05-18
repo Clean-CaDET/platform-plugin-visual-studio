@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
-using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using System.ComponentModel;
 
-namespace Clean_CaDET.View.ViewModel
+namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
     public class TutoringWindowVM: INotifyPropertyChanged
     {

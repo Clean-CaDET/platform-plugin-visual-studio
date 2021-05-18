@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.Shell;
 using System.Runtime.InteropServices;
 
-namespace Clean_CaDET.View
+namespace Clean_CaDET.View.TutoringPanel
 {
     [Guid("0381f46d-804e-4919-ad26-fa160bfee532")]
     public sealed class TutoringWindow : ToolWindowPane

@@ -1,5 +1,6 @@
 ﻿using Clean_CaDET.Model;
 using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using Clean_CaDET.View.TutoringPanel;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;

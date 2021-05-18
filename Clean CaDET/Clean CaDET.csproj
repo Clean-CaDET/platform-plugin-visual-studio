@@ -47,6 +47,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\PlatformConnection\MockConnection.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeHintDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeSubmissionDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeEvaluationDTO.cs" />
@@ -71,15 +72,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Clean_CaDETPackage.vsct</DependentUpon>
     </Compile>
-    <Compile Include="View\TutoringWindow.cs" />
+    <Compile Include="View\LearningObject\LearningObjectPanel.xaml.cs">
+      <DependentUpon>LearningObjectPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TutoringPanel\TutoringWindow.cs" />
     <Compile Include="View\Commands\TutoringWindowCommand.cs" />
-    <Compile Include="View\TutoringWindowControl.xaml.cs">
+    <Compile Include="View\TutoringPanel\TutoringWindowControl.xaml.cs">
       <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewModel\ChallengeHintVM.cs" />
-    <Compile Include="View\ViewModel\ContentVM.cs" />
-    <Compile Include="View\ViewModel\LearningObjectVM.cs" />
-    <Compile Include="View\ViewModel\TutoringWindowVM.cs" />
+    <Compile Include="View\TutoringPanel\ViewModel\ChallengeHintVM.cs" />
+    <Compile Include="View\TutoringPanel\ViewModel\ContentVM.cs" />
+    <Compile Include="View\LearningObject\LearningObjectVM.cs" />
+    <Compile Include="View\TutoringPanel\ViewModel\TutoringWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">
@@ -123,7 +127,11 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\TutoringWindowControl.xaml">
+    <Page Include="View\LearningObject\LearningObjectPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TutoringPanel\TutoringWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

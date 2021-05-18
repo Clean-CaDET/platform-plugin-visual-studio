@@ -1,12 +1,13 @@
 ﻿using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
 using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+using Clean_CaDET.View.ViewModel;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace Clean_CaDET.View.ViewModel
+namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
     public class ContentVM: INotifyPropertyChanged
     {
@@ -72,10 +73,10 @@ namespace Clean_CaDET.View.ViewModel
         public ContentVM(string title, List<ChallengeHintDTO> applicableHints, LearningObjectDTO solutionLO)
         {
             Title = title;
-            ApplicableHints = applicableHints.Select(hint => new ChallengeHintVM(hint)).ToList();
+            ApplicableHints = applicableHints?.Select(hint => new ChallengeHintVM(hint)).ToList();
             Solution = new LearningObjectVM(solutionLO);
 
-            HintPanelVisibility = ApplicableHints.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+            HintPanelVisibility = ApplicableHints?.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
             HintVisibility = Visibility.Collapsed;
             SolutionVisibility = Visibility.Collapsed;
         }
