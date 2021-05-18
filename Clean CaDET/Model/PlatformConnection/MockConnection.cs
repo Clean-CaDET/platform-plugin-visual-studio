@@ -9,10 +9,9 @@ namespace Clean_CaDET.Model.PlatformConnection
     {
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId)
         {
-            //TODO: CAUSES ERROR WHEN USED IF VS CHANGES RESIZES. Use only for faster testing.
             return await Task.FromResult(new ChallengeEvaluationDTO
             {
-                /*ApplicableHints = new List<ChallengeHintDTO>
+                ApplicableHints = new List<ChallengeHintDTO>
                 {
                     new ChallengeHintDTO
                     {
@@ -26,7 +25,7 @@ namespace Clean_CaDET.Model.PlatformConnection
                 },
                 ChallengeCompleted = false,
                 ChallengeId = 1,
-                SolutionLO = new TextDTO {Content = "First text content"}*/
+                SolutionLO = new TextDTO {Content = "First text content"}
             });
         }
     }

@@ -70,9 +70,11 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             }
         }
 
-        public ContentVM(string title, List<ChallengeHintDTO> applicableHints, LearningObjectDTO solutionLO)
+        public ContentVM(bool challengeCompleted, List<ChallengeHintDTO> applicableHints, LearningObjectDTO solutionLO)
         {
-            Title = title;
+            Title = challengeCompleted //TODO: Location of Heisenbug when moving VS from one monitor to another.
+                ? "Congratulations, you completed the challenge!"
+                : "Your submission is not yet there, keep going!";
             ApplicableHints = applicableHints?.Select(hint => new ChallengeHintVM(hint)).ToList();
             Solution = new LearningObjectVM(solutionLO);
 

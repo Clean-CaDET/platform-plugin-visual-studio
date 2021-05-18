@@ -23,10 +23,7 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
 
         public void UpdateContent(ChallengeEvaluationDTO content)
         {
-            var title = content.ChallengeCompleted
-                ? "Congratulations, you completed the challenge!"
-                : "Your submission is not yet there.";
-            Content = new ContentVM(title, content.ApplicableHints, content.SolutionLO);
+            Content = new ContentVM(content.ChallengeCompleted, content.ApplicableHints, content.SolutionLO);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
