@@ -13,7 +13,8 @@ namespace Clean_CaDET.Model
         public PlatformService()
         {
             _explorer = new SolutionExplorer();
-            _platformConnection = new CaDETConnection();
+            //_platformConnection = new CaDETConnection();
+            _platformConnection = new MockConnection();
         }
 
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath)
