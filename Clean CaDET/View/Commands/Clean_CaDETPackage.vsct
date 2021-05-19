@@ -41,6 +41,15 @@
           <ButtonText>Submit Challenge Solution</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCCContextMenu" id="CodeAnalysisCommand" priority="0x0100" type="Button">
+        <Parent guid="guidCCContextMenu" id="FileContextGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+	    <CommandFlag>DefaultInvisible</CommandFlag>
+		<CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Code Analysis</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <Bitmaps>
@@ -50,6 +59,9 @@
 
   <CommandPlacements>
 	  <CommandPlacement guid="guidCCContextMenu" id="ChallengeSubmissionCommand" priority="0x105">
+		  <Parent guid="guidCCContextMenu" id="FolderContextGroup" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidCCContextMenu" id="CodeAnalysisCommand" priority="0x105">
 		  <Parent guid="guidCCContextMenu" id="FolderContextGroup" />
 	  </CommandPlacement>
   </CommandPlacements>
@@ -66,11 +78,14 @@
     <GuidSymbol name="guidCCContextMenu" value="{42057fd0-5cab-412d-a4f6-4330809ce9ee}">
       <IDSymbol value="4128" name="FolderContextGroup" />
       <IDSymbol value="4129" name="FileContextGroup" />
+      
+      <IDSymbol value="257" name="CodeAnalysisCommand" />
       <IDSymbol value="256" name="ChallengeSubmissionCommand" />
     </GuidSymbol>
 
 	<GuidSymbol name="guidImages" value="{ec7304be-ae7a-4fe7-83d7-ef2a19d26720}">
 	  <IDSymbol name="bmpPic1" value="1" />
 	</GuidSymbol>
+  
   </Symbols>
 </CommandTable>

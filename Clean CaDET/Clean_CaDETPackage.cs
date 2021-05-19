@@ -1,4 +1,5 @@
-﻿using Clean_CaDET.View.Commands;
+﻿using Clean_CaDET.View.QualityAnalysisPanel;
+using Clean_CaDET.View.Commands;
 using Clean_CaDET.View.TutoringPanel;
 using Microsoft.VisualStudio.Shell;
 using System;
@@ -12,6 +13,7 @@ namespace Clean_CaDET
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(TutoringWindow))]
+    [ProvideToolWindow(typeof(CodeAnalysisWindow))]
     public sealed class Clean_CaDETPackage : AsyncPackage
     {
         public const string PackageGuidString = "549a40ba-7800-435f-8e0f-b0c5ec49fbf3";
@@ -21,6 +23,7 @@ namespace Clean_CaDET
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await TutoringWindowCommand.InitializeAsync(this);
             await SubmitChallengeCommand.InitializeAsync(this);
+            await CodeAnalysisCommand.InitializeAsync(this);
         }
     }
 }

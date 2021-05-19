@@ -24,10 +24,17 @@
             <Setter Property = "FontSize" Value = "14" />
         </Style>
         <Style x:Key = "TitleContentStyle" TargetType = "TextBox" BasedOn="{StaticResource SelectableTextBox}">
+            <Setter Property = "Padding" Value = "10 20 30 20" />
             <Setter Property = "TextAlignment" Value = "Center" />
             <Setter Property = "FontFamily" Value = "Helvetica" />
             <Setter Property = "FontSize" Value = "24" />
             <Setter Property = "FontWeight" Value = "Bold" />
+        </Style>
+        <Style x:Key = "ButtonStyle" TargetType = "Button">
+            <Setter Property = "FontSize" Value = "14" />
+            <Setter Property = "FontWeight" Value = "Bold" />
+            <Setter Property="Background" Value="DarkGoldenrod"/>
+            <Setter Property="Margin" Value="10 5 30 50"/>
         </Style>
     </UserControl.Resources>
 
@@ -35,39 +42,26 @@
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" CanVerticallyScroll="True">
                 <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
-                <StackPanel Visibility="{Binding Content.HintPanelVisibility}">
-                    <Button Click="ShowHints_OnClick" Visibility="{Binding Content.HintButtonVisibility}">Show Hints</Button>
+                <StackPanel Visibility="{Binding Content.MainPanelVisibility}">
+                    <TextBox Visibility="{Binding Content.HintButtonVisibility}" Style="{StaticResource TextContentStyle}" Text="{Binding Content.HintText}"/>
+                    <Button Style="{StaticResource ButtonStyle}" Click="ShowHints_OnClick" Visibility="{Binding Content.HintButtonVisibility}">Show Hints</Button>
                     <StackPanel Visibility="{Binding Content.HintVisibility}">
-                        <ListView ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  VerticalContentAlignment="Top"  
-                                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                                  DataContext="{Binding Content}" ItemsSource="{Binding ApplicableHints}">
-                            <ListView.ItemTemplate>
+                        <ItemsControl DataContext="{Binding Content}" ItemsSource="{Binding ApplicableHints}">
+                            <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
                                         <TextBox Text="{Binding Content}" Style="{StaticResource TextContentStyle}" />
                                         <learningObject:LearningObjectPanel DataContext="{Binding LearningObject }" />
                                         <TextBox Text="Applicable to:" FontWeight="Bold" Style="{StaticResource TextContentStyle}"/>
-                                        <TextBox Text="{Binding ApplicableTo}" Style="{StaticResource TextContentStyle}"/>
+                                        <TextBox Text="{Binding ApplicableTo}" Style="{StaticResource SelectableTextBox}"/>
                                     </StackPanel>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListViewItem}">
-                                    <Setter Property="Background" Value="Transparent" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                <ContentPresenter />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                        </ListView>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
-
-                    <Button Click="ShowSolution_OnClick" Visibility="{Binding Content.SolutionButtonVisibility}">Show Solutions</Button>
+                    <Separator/>
+                    <TextBox Style="{StaticResource TextContentStyle}" Text="{Binding Content.SolutionText}"/>
+                    <Button Style="{StaticResource ButtonStyle}" Click="ShowSolution_OnClick" Visibility="{Binding Content.SolutionButtonVisibility}">Show Solutions</Button>
                     <StackPanel Visibility="{Binding Content.SolutionVisibility}">
                         <learningObject:LearningObjectPanel DataContext="{Binding Content.Solution }" />
                     </StackPanel>

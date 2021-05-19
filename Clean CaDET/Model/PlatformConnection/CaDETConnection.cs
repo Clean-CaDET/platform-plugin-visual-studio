@@ -1,4 +1,5 @@
-﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.QualityAnalysis;
+using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -15,11 +16,21 @@ namespace Clean_CaDET.Model.PlatformConnection
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId)
         {
             var payload = new ChallengeSubmissionDTO(sourceCode, challengeId, learnerId);
-            StringContent request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+            var request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
             
-            HttpResponseMessage response = await _httpClient.PostAsync(baseUrl + "submissions/challenge", request);
-            string content = await response.Content.ReadAsStringAsync();
+            var response = await _httpClient.PostAsync(baseUrl + "submissions/challenge", request);
+            var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<ChallengeEvaluationDTO>(content);
+        }
+
+        public async Task<CodeEvaluationDTO> EvaluateCodeQualityAsync(string[] sourceCode)
+        {
+            var payload = new CodeSubmissionDTO {SourceCode = sourceCode, LearnerId = 1};
+            var request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync(baseUrl + "code-analysis/", request);
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<CodeEvaluationDTO>(content);
         }
     }
 }

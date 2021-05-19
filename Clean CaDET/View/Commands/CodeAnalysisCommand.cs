@@ -1,6 +1,6 @@
 ﻿using Clean_CaDET.Model;
-using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
-using Clean_CaDET.View.TutoringPanel;
+using Clean_CaDET.Model.PlatformConnection.DTOs.QualityAnalysis;
+using Clean_CaDET.View.QualityAnalysisPanel;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -13,15 +13,15 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Clean_CaDET.View.Commands
 {
-    internal sealed class SubmitChallengeCommand
+    internal sealed class CodeAnalysisCommand
     {
-        public const int CommandId = 256;
+        public const int CommandId = 257;
         public static readonly Guid CommandSet = new Guid("42057fd0-5cab-412d-a4f6-4330809ce9ee");
         private readonly AsyncPackage _package;
 
         private string _selectedFilePath;
         private readonly PlatformService _service = new PlatformService();
-        private SubmitChallengeCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private CodeAnalysisCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -29,10 +29,10 @@ namespace Clean_CaDET.View.Commands
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(Execute, menuCommandID);
             menuItem.BeforeQueryStatus += ShowMenuCommandWhenSuitable;
-
             commandService.AddCommand(menuItem);
         }
 
+        //TODO: Refactor duplicate code (SubmitChallengeCommand)
         private void ShowMenuCommandWhenSuitable(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -121,7 +121,7 @@ namespace Clean_CaDET.View.Commands
             }
         }
 
-        public static SubmitChallengeCommand Instance
+        public static CodeAnalysisCommand Instance
         {
             get;
             private set;
@@ -132,21 +132,22 @@ namespace Clean_CaDET.View.Commands
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SubmitChallengeCommand(package, commandService);
+            OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            Instance = new CodeAnalysisCommand(package, commandService);
         }
+
         private async void Execute(object sender, EventArgs e)
         {
-            ChallengeEvaluationDTO challengeEvaluation = await _service.SubmitChallengeAsync(_selectedFilePath);
+            CodeEvaluationDTO codeEvaluation = await _service.AnalyzeCodeAsync(_selectedFilePath);
 
-            ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
+            ToolWindowPane window = _package.FindToolWindow(typeof(CodeAnalysisWindow), 0, true);
             if (window?.Frame == null)
             {
                 throw new NotSupportedException("Cannot create tool window");
             }
 
-            var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVmContent(challengeEvaluation);
+            var codeAnalysisWindow = window as CodeAnalysisWindow;
+            codeAnalysisWindow?.UpdateVmContent(codeEvaluation);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());

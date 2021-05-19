@@ -9,7 +9,7 @@ namespace Clean_CaDET.View.TutoringPanel
     {
         public TutoringWindow() : base(null)
         {
-            Caption = "Clean CaDET";
+            Caption = "CCaDET Challenge Analysis";
             Content = new TutoringWindowControl();
         }
 

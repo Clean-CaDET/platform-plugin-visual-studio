@@ -1,11 +1,11 @@
 ﻿using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
 using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
-using Clean_CaDET.View.ViewModel;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Clean_CaDET.View.LearningObject;
 
 namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
@@ -14,14 +14,18 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
         public string Title { get; set; }
         public List<ChallengeHintVM> ApplicableHints { get; set; }
         public LearningObjectVM Solution { get; set; }
+        
+        public string HintText { get; set; }
 
-        private Visibility _hintPanelVisibility;
-        public Visibility HintPanelVisibility
+        public string SolutionText { get; set; }
+
+        private Visibility _mainPanelVisibility;
+        public Visibility MainPanelVisibility
         {
-            get => _hintPanelVisibility;
+            get => _mainPanelVisibility;
             set
             {
-                _hintPanelVisibility = value;
+                _mainPanelVisibility = value;
                 OnPropertyChanged("HintPanelVisibility");
             }
         }
@@ -78,14 +82,20 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             ApplicableHints = applicableHints?.Select(hint => new ChallengeHintVM(hint)).ToList();
             Solution = new LearningObjectVM(solutionLO);
 
-            HintPanelVisibility = ApplicableHints?.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+            if(challengeCompleted) HintText = "You can view all the available hints for this completed challenge.";
+            else if(ApplicableHints?.Count == 1) HintText = "You have 1 hint available.";
+            else HintText = "You have " + ApplicableHints.Count + " hints available.";
+
+            SolutionText = "Feel free to view our solution, but only after you've attempted to produce your own. Note that your solution can differ from ours in some aspects.";
+
+            MainPanelVisibility = ApplicableHints?.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
             HintVisibility = Visibility.Collapsed;
             SolutionVisibility = Visibility.Collapsed;
         }
 
         public ContentVM()
         {
-            HintPanelVisibility = Visibility.Collapsed;
+            MainPanelVisibility = Visibility.Collapsed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

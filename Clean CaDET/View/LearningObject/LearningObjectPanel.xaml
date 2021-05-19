@@ -3,9 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewmodel="clr-namespace:Clean_CaDET.View.ViewModel"
+             xmlns:learningObject="clr-namespace:Clean_CaDET.View.LearningObject"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
-             d:DataContext="{d:DesignInstance Type=viewmodel:LearningObjectVM}"
+             d:DataContext="{d:DesignInstance Type=learningObject:LearningObjectVM}"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d" 
@@ -17,23 +17,40 @@
             <Setter Property = "IsReadOnly" Value = "True" />
             <Setter Property = "BorderThickness" Value = "0" />
             <Setter Property = "Background" Value = "Transparent" />
+            <Setter Property = "TextAlignment" Value = "Center" />
         </Style>
         <Style x:Key = "TextContentStyle" TargetType = "TextBox" BasedOn="{StaticResource SelectableTextBox}">
             <Setter Property = "TextAlignment" Value = "Justify" />
             <Setter Property = "FontSize" Value = "14" />
         </Style>
+        <Style x:Key = "VideoContentStyle" TargetType = "TextBox" BasedOn="{StaticResource SelectableTextBox}">
+            <Setter Property = "TextAlignment" Value = "Justify" />
+            <Setter Property = "FontSize" Value = "14" />
+            <Setter Property = "Padding" Value = "10 10 10 10" />
+        </Style>
+        <Style x:Key = "LO" TargetType = "Grid">
+            <Setter Property="Margin" Value="0 0 0 20"/>
+        </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Style="{StaticResource LO}">
         <WrapPanel Visibility="{Binding TextVisibility}">
             <TextBox Text="{Binding Text}" Style="{StaticResource TextContentStyle}"/>
         </WrapPanel>
         <WrapPanel Visibility="{Binding ImageVisibility}">
-            <Image Source="{Binding Url}"/>
-            <TextBox Text="{Binding Caption}" Style="{StaticResource TextContentStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="95*" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <Image Name="Image" Source="{Binding Url}" Grid.Column="0"/>
+            </Grid>
+            <TextBox Width="{Binding ElementName=Image, Path=ActualWidth}" Text="{Binding Caption}" Style="{StaticResource SelectableTextBox}"/>
         </WrapPanel>
         <WrapPanel Visibility="{Binding VideoVisibility}">
-            <TextBox Text="Watch the video located on this URL: " Style="{StaticResource TextContentStyle}"/>
-            <TextBox Text="{Binding Url}" Style="{StaticResource TextContentStyle}"/>
+            <TextBox Text="Watch the video located on this URL:" Style="{StaticResource VideoContentStyle}"/>
+            <TextBlock VerticalAlignment="Center">
+                <Hyperlink NavigateUri="{Binding Url}"><Bold>LINK</Bold></Hyperlink>
+            </TextBlock>
         </WrapPanel>
     </Grid>
 </UserControl>

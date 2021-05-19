@@ -47,6 +47,8 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\PlatformConnection\DTOs\QualityAnalysis\CodeSubmissionDTO.cs" />
+    <Compile Include="Model\PlatformConnection\DTOs\QualityAnalysis\IssueAdviceDTO.cs" />
     <Compile Include="Model\PlatformConnection\MockConnection.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeHintDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\SubmissionEvaluation\ChallengeSubmissionDTO.cs" />
@@ -56,6 +58,14 @@
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\TextDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\VideoDTO.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
+    <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindow.cs" />
+    <Compile Include="View\Commands\CodeAnalysisCommand.cs" />
+    <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindowControl.xaml.cs">
+      <DependentUpon>CodeAnalysisWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PlatformConnection\DTOs\QualityAnalysis\CodeEvaluationDTO.cs" />
+    <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeAnalysisWindowVM.cs" />
+    <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeEvaluationVM.cs" />
     <Compile Include="View\Commands\SubmitChallengeCommand.cs" />
     <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
     <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
@@ -75,6 +85,7 @@
     <Compile Include="View\LearningObject\LearningObjectPanel.xaml.cs">
       <DependentUpon>LearningObjectPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeIssueVM.cs" />
     <Compile Include="View\TutoringPanel\TutoringWindow.cs" />
     <Compile Include="View\Commands\TutoringWindowCommand.cs" />
     <Compile Include="View\TutoringPanel\TutoringWindowControl.xaml.cs">
@@ -127,6 +138,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\QualityAnalysisPanel\CodeAnalysisWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LearningObject\LearningObjectPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

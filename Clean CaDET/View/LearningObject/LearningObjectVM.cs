@@ -1,10 +1,11 @@
-﻿using System.Windows;
-using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
+﻿using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
+using System.Windows;
 
-namespace Clean_CaDET.View.ViewModel
+namespace Clean_CaDET.View.LearningObject
 {
     public class LearningObjectVM
     {
+        public int Id { get; set; }
         public Visibility VideoVisibility { get; set; } = Visibility.Collapsed;
         public string Url { get; set; }
         public Visibility ImageVisibility { get; set; } = Visibility.Collapsed;
@@ -13,6 +14,7 @@ namespace Clean_CaDET.View.ViewModel
         public string Text { get; set; }
         public LearningObjectVM(LearningObjectDTO lo)
         {
+            Id = lo.Id;
             switch (lo)
             {
                 case TextDTO text:
@@ -29,6 +31,17 @@ namespace Clean_CaDET.View.ViewModel
                     Url = video.Url;
                     break;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is LearningObjectVM other
+                   && other.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

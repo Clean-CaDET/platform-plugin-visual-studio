@@ -1,5 +1,5 @@
 ﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
-using Clean_CaDET.View.ViewModel;
+using Clean_CaDET.View.LearningObject;
 
 namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
