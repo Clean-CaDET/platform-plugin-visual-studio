@@ -20,10 +20,13 @@ namespace Clean_CaDET.View.Commands
         private readonly AsyncPackage _package;
 
         private string _selectedFilePath;
-        private readonly PlatformService _service = new PlatformService();
+        private readonly PlatformService _service;
         private CodeAnalysisCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
+            var ccaDetPackage = _package as Clean_CaDETPackage;
+            _service = new PlatformService(ccaDetPackage.ServerUrl);
+
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);

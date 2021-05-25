@@ -25,13 +25,6 @@
       </Groups>
 
 	  <Buttons>
-      <Button guid="guidCCExtensionMenu" id="TutoringWindowCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidCCExtensionMenu" id="MainMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
-        <Strings>
-          <ButtonText>Tutor</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidCCContextMenu" id="ChallengeSubmissionCommand" priority="0x0100" type="Button">
         <Parent guid="guidCCContextMenu" id="FileContextGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
@@ -72,7 +65,6 @@
     <GuidSymbol name="guidCCExtensionMenu" value="{e950531b-e655-48b1-8c63-ac3526bdbb54}">
 		<IDSymbol name="TopLevelMenu" value="0x1021" />
 		<IDSymbol name="MainMenuGroup" value="0x1020" />
-		<IDSymbol name="TutoringWindowCommandId" value="0x0100" />
     </GuidSymbol>
   
     <GuidSymbol name="guidCCContextMenu" value="{42057fd0-5cab-412d-a4f6-4330809ce9ee}">

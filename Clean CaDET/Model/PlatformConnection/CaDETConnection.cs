@@ -10,15 +10,19 @@ namespace Clean_CaDET.Model.PlatformConnection
     public sealed class CaDETConnection: IPlatformConnection
     {
         private readonly HttpClient _httpClient = new HttpClient();
-        //TODO:Refactor to be read from configuration
-        private readonly string baseUrl = "https://localhost:44333/api/";
+        private readonly string _baseUrl;
+
+        public CaDETConnection(string url)
+        {
+            _baseUrl = url;
+        }
 
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string[] sourceCode, int challengeId, int learnerId)
         {
             var payload = new ChallengeSubmissionDTO(sourceCode, challengeId, learnerId);
             var request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
             
-            var response = await _httpClient.PostAsync(baseUrl + "submissions/challenge", request);
+            var response = await _httpClient.PostAsync(_baseUrl + "submissions/challenge", request);
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<ChallengeEvaluationDTO>(content);
         }
@@ -28,7 +32,7 @@ namespace Clean_CaDET.Model.PlatformConnection
             var payload = new CodeSubmissionDTO {SourceCode = sourceCode, LearnerId = 1};
             var request = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync(baseUrl + "code-analysis/", request);
+            var response = await _httpClient.PostAsync(_baseUrl + "code-analysis/", request);
             var content = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<CodeEvaluationDTO>(content);
         }

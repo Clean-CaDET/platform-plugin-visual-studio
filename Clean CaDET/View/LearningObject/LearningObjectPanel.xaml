@@ -49,7 +49,7 @@
         <WrapPanel Visibility="{Binding VideoVisibility}">
             <TextBox Text="Watch the video located on this URL:" Style="{StaticResource VideoContentStyle}"/>
             <TextBlock VerticalAlignment="Center">
-                <Hyperlink NavigateUri="{Binding Url}"><Bold>LINK</Bold></Hyperlink>
+                <Hyperlink RequestNavigate="Hyperlink_OnRequestNavigate" NavigateUri="{Binding Url}"><Bold>LINK</Bold></Hyperlink>
             </TextBlock>
         </WrapPanel>
     </Grid>

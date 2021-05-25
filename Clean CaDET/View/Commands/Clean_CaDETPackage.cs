@@ -28,7 +28,6 @@ namespace Clean_CaDET.View
     {
         public const int TopLevelMenu = 0x1021;
         public const int MainMenuGroup = 0x1020;
-        public const int TutoringWindowCommandId = 0x0100;
         public const int bmpPic1 = 0x0001;
     }
 }

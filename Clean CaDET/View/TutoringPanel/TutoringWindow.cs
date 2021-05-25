@@ -1,5 +1,4 @@
-﻿using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
-using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio.Shell;
 using System.Runtime.InteropServices;
 
 namespace Clean_CaDET.View.TutoringPanel
@@ -13,9 +12,9 @@ namespace Clean_CaDET.View.TutoringPanel
             Content = new TutoringWindowControl();
         }
 
-        public void UpdateVmContent(ChallengeEvaluationDTO content)
+        public void UpdateVmContent(string selectedPath, string serverUrl)
         {
-            if (Content is TutoringWindowControl windowControl) windowControl.ViewModel.UpdateContent(content);
+            if (Content is TutoringWindowControl windowControl) windowControl.ViewModel.Update(selectedPath, serverUrl);
         }
     }
 }

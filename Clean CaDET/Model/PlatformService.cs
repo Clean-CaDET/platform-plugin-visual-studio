@@ -11,18 +11,18 @@ namespace Clean_CaDET.Model
         private readonly SolutionExplorer _explorer;
         private readonly IPlatformConnection _platformConnection;
         //TODO: DI
-        public PlatformService()
+        public PlatformService(string url)
         {
             _explorer = new SolutionExplorer();
-            _platformConnection = new CaDETConnection();
+            _platformConnection = new CaDETConnection(url);
             //_platformConnection = new MockConnection();
         }
 
-        public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath)
+        public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath, int challengeId, int learnerId)
         {
             var sourceCode = await _explorer.CollectSourceCodeAsync(codePath);
             //TODO: Read challenge and learner id from UI/plugin
-            return await _platformConnection.SubmitChallengeAsync(sourceCode, 41, 1);
+            return await _platformConnection.SubmitChallengeAsync(sourceCode, challengeId, learnerId);
         }
 
         internal async Task<CodeEvaluationDTO> AnalyzeCodeAsync(string codePath)

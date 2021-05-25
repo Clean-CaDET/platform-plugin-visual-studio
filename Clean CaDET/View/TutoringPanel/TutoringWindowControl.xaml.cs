@@ -1,18 +1,15 @@
-﻿using Clean_CaDET.Model;
-using Clean_CaDET.View.TutoringPanel.ViewModel;
+﻿using Clean_CaDET.View.TutoringPanel.ViewModel;
 using System.Windows;
 
 namespace Clean_CaDET.View.TutoringPanel
 {
     public partial class TutoringWindowControl
     {
-        private PlatformService _platform;
         public TutoringWindowVM ViewModel { get; set; }
 
         public TutoringWindowControl()
         {
             InitializeComponent();
-            _platform = new PlatformService();
             ViewModel = new TutoringWindowVM();
             DataContext = ViewModel;
         }
@@ -27,6 +24,11 @@ namespace Clean_CaDET.View.TutoringPanel
         {
             ViewModel.Content.SolutionVisibility = Visibility.Visible;
             ViewModel.Content.SolutionButtonVisibility = Visibility.Collapsed;
+        }
+
+        private void SubmitChallenge_OnClick(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SubmitChallengeAsync();
         }
     }
 }

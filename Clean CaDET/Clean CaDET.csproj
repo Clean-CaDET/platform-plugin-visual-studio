@@ -58,6 +58,9 @@
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\TextDTO.cs" />
     <Compile Include="Model\PlatformConnection\DTOs\LearningObjects\VideoDTO.cs" />
     <Compile Include="Model\PlatformConnection\IPlatformConnection.cs" />
+    <Compile Include="View\Options\OptionPageGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindow.cs" />
     <Compile Include="View\Commands\CodeAnalysisCommand.cs" />
     <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindowControl.xaml.cs">
@@ -87,7 +90,6 @@
     </Compile>
     <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeIssueVM.cs" />
     <Compile Include="View\TutoringPanel\TutoringWindow.cs" />
-    <Compile Include="View\Commands\TutoringWindowCommand.cs" />
     <Compile Include="View\TutoringPanel\TutoringWindowControl.xaml.cs">
       <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
     </Compile>

@@ -1,6 +1,4 @@
-﻿using Clean_CaDET.Model;
-using Clean_CaDET.Model.PlatformConnection.DTOs.SubmissionEvaluation;
-using Clean_CaDET.View.TutoringPanel;
+﻿using Clean_CaDET.View.TutoringPanel;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -20,10 +18,13 @@ namespace Clean_CaDET.View.Commands
         private readonly AsyncPackage _package;
 
         private string _selectedFilePath;
-        private readonly PlatformService _service = new PlatformService();
+        private readonly string _serverUrl;
         private SubmitChallengeCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
+            var ccaDetPackage = _package as Clean_CaDETPackage;
+            _serverUrl = ccaDetPackage.ServerUrl;
+
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
@@ -135,10 +136,8 @@ namespace Clean_CaDET.View.Commands
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new SubmitChallengeCommand(package, commandService);
         }
-        private async void Execute(object sender, EventArgs e)
+        private void Execute(object sender, EventArgs e)
         {
-            ChallengeEvaluationDTO challengeEvaluation = await _service.SubmitChallengeAsync(_selectedFilePath);
-
             ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
             if (window?.Frame == null)
             {
@@ -146,7 +145,7 @@ namespace Clean_CaDET.View.Commands
             }
 
             var tutoringWindow = window as TutoringWindow;
-            tutoringWindow?.UpdateVmContent(challengeEvaluation);
+            tutoringWindow?.UpdateVmContent(_selectedFilePath, _serverUrl);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());

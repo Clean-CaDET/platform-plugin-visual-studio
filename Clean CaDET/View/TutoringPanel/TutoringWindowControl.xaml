@@ -41,6 +41,26 @@
     <Grid Name="TutorGrid">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
             <StackPanel MaxWidth="{Binding ElementName=TutorGrid, Path=ActualWidth}" CanVerticallyScroll="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Grid.Row="0" Style="{StaticResource TextContentStyle}" FontStyle="Italic">Path:</TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path}" Style="{StaticResource SelectableTextBox}"/>
+                    <TextBox Grid.Column="0" Grid.Row="1" Style="{StaticResource TextContentStyle}" FontStyle="Italic">Challenge Id:</TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5 5 50 5" Text="{Binding ChallengeId}"></TextBox>
+                    <TextBox Grid.Column="0" Grid.Row="2" Style="{StaticResource TextContentStyle}" FontStyle="Italic">Learner Id:</TextBox>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5 5 50 5" Text="{Binding LearnerId}"></TextBox>
+                    <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="SubmitChallenge_OnClick" Margin="5 5 50 5" FontStyle="Italic">Submit Challenge</Button>
+                </Grid>
+                <Separator/>
                 <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
                 <StackPanel Visibility="{Binding Content.MainPanelVisibility}">
                     <TextBox Visibility="{Binding Content.HintButtonVisibility}" Style="{StaticResource TextContentStyle}" Text="{Binding Content.HintText}"/>
