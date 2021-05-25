@@ -1,5 +1,7 @@
 ﻿using Clean_CaDET.Model;
 using System.ComponentModel;
+using System.Net.Http;
+using System.Windows.Forms;
 
 namespace Clean_CaDET.View.TutoringPanel.ViewModel
 {
@@ -50,6 +52,18 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             }
         }
 
+        private string _error;
+
+        public string Error
+        {
+            get => _error;
+            set
+            {
+                _error = value;
+                OnPropertyChanged("Error");
+            }
+        }
+
         public TutoringWindowVM()
         {
             Content = new ContentVM();
@@ -63,9 +77,22 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
 
         public async void SubmitChallengeAsync()
         {
-            if (string.IsNullOrEmpty(Path) || ChallengeId == 0 || LearnerId == 0) return;
-            var content = await _platform.SubmitChallengeAsync(_path, ChallengeId, LearnerId);
-            Content = new ContentVM(content.ChallengeCompleted, content.ApplicableHints, content.SolutionLO);
+            if (string.IsNullOrEmpty(Path) || ChallengeId == 0 || LearnerId == 0)
+            {
+                Error =
+                    "Missing important fields. Ensure the Challenge path is set (through the Submit Challenge Evaluation command) and that the Challenge and Learner Id are not 0.";
+                return;
+            }
+            try
+            {
+                Error = "";
+                var content = await _platform.SubmitChallengeAsync(_path, ChallengeId, LearnerId);
+                Content = new ContentVM(content.ChallengeCompleted, content.ApplicableHints, content.SolutionLO);
+            }
+            catch (HttpRequestException e)
+            {
+                Error = e.Message + "\n" + e.InnerException?.Message;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

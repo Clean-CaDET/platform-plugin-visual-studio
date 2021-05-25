@@ -60,6 +60,7 @@
                     <TextBox Grid.Column="1" Grid.Row="2" Margin="5 5 50 5" Text="{Binding LearnerId}"></TextBox>
                     <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="SubmitChallenge_OnClick" Margin="5 5 50 5" FontStyle="Italic">Submit Challenge</Button>
                 </Grid>
+                <TextBox Text="{Binding Error}" Style="{StaticResource TextContentStyle}"></TextBox>
                 <Separator/>
                 <TextBox Text="{Binding Content.Title}" Style="{StaticResource TitleContentStyle}"/>
                 <StackPanel Visibility="{Binding Content.MainPanelVisibility}">

@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -141,7 +142,16 @@ namespace Clean_CaDET.View.Commands
 
         private async void Execute(object sender, EventArgs e)
         {
-            CodeEvaluationDTO codeEvaluation = await _service.AnalyzeCodeAsync(_selectedFilePath);
+            CodeEvaluationDTO codeEvaluation;
+            try
+            {
+                codeEvaluation = await _service.AnalyzeCodeAsync(_selectedFilePath);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                return;
+            }
 
             ToolWindowPane window = _package.FindToolWindow(typeof(CodeAnalysisWindow), 0, true);
             if (window?.Frame == null)
