@@ -1,16 +1,16 @@
-﻿using Clean_CaDET.View.TutoringPanel.ViewModel;
-using System.Windows;
+﻿using System.Windows;
+using Clean_CaDET.View.ChallengePanel.ViewModel;
 
-namespace Clean_CaDET.View.TutoringPanel
+namespace Clean_CaDET.View.ChallengePanel
 {
     public partial class TutoringWindowControl
     {
-        public TutoringWindowVM ViewModel { get; set; }
+        public ChallengeWindowVM ViewModel { get; set; }
 
         public TutoringWindowControl()
         {
             InitializeComponent();
-            ViewModel = new TutoringWindowVM();
+            ViewModel = new ChallengeWindowVM();
             DataContext = ViewModel;
         }
 

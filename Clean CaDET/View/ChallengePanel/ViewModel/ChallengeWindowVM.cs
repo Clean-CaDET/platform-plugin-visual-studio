@@ -1,10 +1,12 @@
 ﻿using Clean_CaDET.Model;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 
-namespace Clean_CaDET.View.TutoringPanel.ViewModel
+namespace Clean_CaDET.View.ChallengePanel.ViewModel
 {
-    public class TutoringWindowVM: INotifyPropertyChanged
+    public class ChallengeWindowVM: INotifyPropertyChanged
     {
         private PlatformService _platform;
         private ContentVM _content;
@@ -18,14 +20,15 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             }
         }
 
-        private string _path;
-        public string Path
+        public string FullPath { get; set; }
+        private string _shortPath;
+        public string ShortPath
         {
-            get => _path;
+            get => _shortPath;
             set
             {
-                _path = value;
-                OnPropertyChanged("Path");
+                _shortPath = value;
+                OnPropertyChanged("ShortPath");
             }
         }
 
@@ -63,20 +66,22 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             }
         }
 
-        public TutoringWindowVM()
+        public ChallengeWindowVM()
         {
             Content = new ContentVM();
         }
 
         public void Update(string path, string serverUrl)
         {
-            Path = path;
+            FullPath = path;
+            var pathElements = path.Split(Path.DirectorySeparatorChar);
+            ShortPath = "~" + string.Join(Path.DirectorySeparatorChar.ToString(), pathElements.Reverse().Take(5).Reverse());
             _platform ??= new PlatformService(serverUrl);
         }
 
         public async void SubmitChallengeAsync()
         {
-            if (string.IsNullOrEmpty(Path) || ChallengeId == 0 || LearnerId == 0)
+            if (string.IsNullOrEmpty(ShortPath) || ChallengeId == 0 || LearnerId == 0)
             {
                 Error =
                     "Missing important fields. Ensure the Challenge path is set (through the Submit Challenge Evaluation command) and that the Challenge and Learner Id are not 0.";
@@ -85,7 +90,7 @@ namespace Clean_CaDET.View.TutoringPanel.ViewModel
             try
             {
                 Error = "";
-                var content = await _platform.SubmitChallengeAsync(_path, ChallengeId, LearnerId);
+                var content = await _platform.SubmitChallengeAsync(FullPath, ChallengeId, LearnerId);
                 Content = new ContentVM(content.ChallengeCompleted, content.ApplicableHints, content.SolutionLO);
             }
             catch (HttpRequestException e)

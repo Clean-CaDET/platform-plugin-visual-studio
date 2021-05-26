@@ -1,4 +1,4 @@
-﻿using Clean_CaDET.View.TutoringPanel;
+﻿using Clean_CaDET.View.ChallengePanel;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -138,13 +138,13 @@ namespace Clean_CaDET.View.Commands
         }
         private void Execute(object sender, EventArgs e)
         {
-            ToolWindowPane window = _package.FindToolWindow(typeof(TutoringWindow), 0, true);
+            ToolWindowPane window = _package.FindToolWindow(typeof(ChallengeWindow), 0, true);
             if (window?.Frame == null)
             {
                 throw new NotSupportedException("Cannot create tool window");
             }
 
-            var tutoringWindow = window as TutoringWindow;
+            var tutoringWindow = window as ChallengeWindow;
             tutoringWindow?.UpdateVmContent(_selectedFilePath, _serverUrl);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;

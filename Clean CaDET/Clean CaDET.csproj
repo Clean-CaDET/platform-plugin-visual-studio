@@ -84,14 +84,14 @@
       <DependentUpon>LearningObjectPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeIssueVM.cs" />
-    <Compile Include="View\TutoringPanel\TutoringWindow.cs" />
-    <Compile Include="View\TutoringPanel\TutoringWindowControl.xaml.cs">
-      <DependentUpon>TutoringWindowControl.xaml</DependentUpon>
+    <Compile Include="View\ChallengePanel\ChallengeWindow.cs" />
+    <Compile Include="View\ChallengePanel\ChallengeWindowControl.xaml.cs">
+      <DependentUpon>ChallengeWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TutoringPanel\ViewModel\ChallengeHintVM.cs" />
-    <Compile Include="View\TutoringPanel\ViewModel\ContentVM.cs" />
+    <Compile Include="View\ChallengePanel\ViewModel\ChallengeHintVM.cs" />
+    <Compile Include="View\ChallengePanel\ViewModel\ContentVM.cs" />
     <Compile Include="View\LearningObject\LearningObjectVM.cs" />
-    <Compile Include="View\TutoringPanel\ViewModel\TutoringWindowVM.cs" />
+    <Compile Include="View\ChallengePanel\ViewModel\ChallengeWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="source.extension.vsixmanifest">
@@ -129,7 +129,7 @@
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.9.31025.194" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.9.1050">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.1597">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -143,7 +143,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TutoringPanel\TutoringWindowControl.xaml">
+    <Page Include="View\ChallengePanel\ChallengeWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

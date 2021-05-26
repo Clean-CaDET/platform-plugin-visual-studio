@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using Clean_CaDET.View.LearningObject;
 
-namespace Clean_CaDET.View.TutoringPanel.ViewModel
+namespace Clean_CaDET.View.ChallengePanel.ViewModel
 {
     public class ContentVM: INotifyPropertyChanged
     {

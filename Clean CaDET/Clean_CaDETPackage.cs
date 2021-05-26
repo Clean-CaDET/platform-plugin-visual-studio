@@ -1,7 +1,7 @@
 ﻿using Clean_CaDET.View.Commands;
 using Clean_CaDET.View.Options;
 using Clean_CaDET.View.QualityAnalysisPanel;
-using Clean_CaDET.View.TutoringPanel;
+using Clean_CaDET.View.ChallengePanel;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Runtime.InteropServices;
@@ -13,7 +13,7 @@ namespace Clean_CaDET
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideToolWindow(typeof(TutoringWindow))]
+    [ProvideToolWindow(typeof(ChallengeWindow))]
     [ProvideToolWindow(typeof(CodeAnalysisWindow))]
     [ProvideOptionPage(typeof(OptionPageGrid),
         "Clean CaDET", "Clean CaDET", 0, 0, true)]
