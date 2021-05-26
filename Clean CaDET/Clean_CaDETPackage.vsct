@@ -35,7 +35,7 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="guidImages" href="..\Resources\cadet.png" usedList="bmpPic1" />
+      <Bitmap guid="guidImages" href="View\Resources\cadet.png" usedList="bmpPic1" />
     </Bitmaps>
   </Commands>
 

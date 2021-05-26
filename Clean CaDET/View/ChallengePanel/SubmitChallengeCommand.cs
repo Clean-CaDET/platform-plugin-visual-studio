@@ -1,17 +1,16 @@
-﻿using Clean_CaDET.View.ChallengePanel;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace Clean_CaDET.View.Commands
+namespace Clean_CaDET.View.ChallengePanel
 {
-    internal sealed class SubmitChallengeCommand
+    internal sealed class StageChallengeCommand
     {
         public const int CommandId = 256;
         public static readonly Guid CommandSet = new Guid("42057fd0-5cab-412d-a4f6-4330809ce9ee");
@@ -19,7 +18,7 @@ namespace Clean_CaDET.View.Commands
 
         private string _selectedFilePath;
         private readonly string _serverUrl;
-        private SubmitChallengeCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private StageChallengeCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             _package = package ?? throw new ArgumentNullException(nameof(package));
             var ccaDetPackage = _package as Clean_CaDETPackage;
@@ -122,7 +121,7 @@ namespace Clean_CaDET.View.Commands
             }
         }
 
-        public static SubmitChallengeCommand Instance
+        public static StageChallengeCommand Instance
         {
             get;
             private set;
@@ -134,7 +133,7 @@ namespace Clean_CaDET.View.Commands
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SubmitChallengeCommand(package, commandService);
+            Instance = new StageChallengeCommand(package, commandService);
         }
         private void Execute(object sender, EventArgs e)
         {
@@ -144,8 +143,8 @@ namespace Clean_CaDET.View.Commands
                 throw new NotSupportedException("Cannot create tool window");
             }
 
-            var tutoringWindow = window as ChallengeWindow;
-            tutoringWindow?.UpdateVmContent(_selectedFilePath, _serverUrl);
+            var challengeWindow = window as ChallengeWindow;
+            challengeWindow?.UpdateVmContent(_selectedFilePath, _serverUrl);
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             ErrorHandler.ThrowOnFailure(windowFrame.Show());

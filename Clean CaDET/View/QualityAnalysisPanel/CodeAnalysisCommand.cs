@@ -1,18 +1,17 @@
-﻿using Clean_CaDET.Model;
-using Clean_CaDET.Model.PlatformConnection.DTOs.QualityAnalysis;
-using Clean_CaDET.View.QualityAnalysisPanel;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using System;
+﻿using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Clean_CaDET.Model;
+using Clean_CaDET.Model.PlatformConnection.DTOs.QualityAnalysis;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
-namespace Clean_CaDET.View.Commands
+namespace Clean_CaDET.View.QualityAnalysisPanel
 {
     internal sealed class CodeAnalysisCommand
     {
@@ -36,7 +35,7 @@ namespace Clean_CaDET.View.Commands
             commandService.AddCommand(menuItem);
         }
 
-        //TODO: Refactor duplicate code (SubmitChallengeCommand)
+        //TODO: Refactor duplicate code (StageChallengeCommand)
         private void ShowMenuCommandWhenSuitable(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

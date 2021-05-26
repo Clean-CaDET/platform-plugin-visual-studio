@@ -62,14 +62,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindow.cs" />
-    <Compile Include="View\Commands\CodeAnalysisCommand.cs" />
+    <Compile Include="View\QualityAnalysisPanel\CodeAnalysisCommand.cs" />
     <Compile Include="View\QualityAnalysisPanel\CodeAnalysisWindowControl.xaml.cs">
       <DependentUpon>CodeAnalysisWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\PlatformConnection\DTOs\QualityAnalysis\CodeEvaluationDTO.cs" />
     <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeAnalysisWindowVM.cs" />
     <Compile Include="View\QualityAnalysisPanel\ViewModel\CodeEvaluationVM.cs" />
-    <Compile Include="View\Commands\SubmitChallengeCommand.cs" />
+    <Compile Include="View\ChallengePanel\SubmitChallengeCommand.cs" />
     <Compile Include="Model\SolutionParser\SolutionExplorer.cs" />
     <Compile Include="Model\PlatformConnection\CaDETConnection.cs" />
     <Compile Include="Model\PlatformService.cs" />
@@ -149,7 +149,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="View\Commands\Clean_CaDETPackage.vsct">
+    <VSCTCompile Include="Clean_CaDETPackage.vsct">
       <Generator>VsctGenerator</Generator>
       <ResourceName>Menus.ctmenu</ResourceName>
       <LastGenOutput>Clean_CaDETPackage.cs</LastGenOutput>

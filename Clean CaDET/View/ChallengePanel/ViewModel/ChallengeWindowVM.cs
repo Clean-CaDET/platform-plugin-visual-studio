@@ -73,6 +73,7 @@ namespace Clean_CaDET.View.ChallengePanel.ViewModel
 
         public void Update(string path, string serverUrl)
         {
+            Content = new ContentVM();
             FullPath = path;
             var pathElements = path.Split(Path.DirectorySeparatorChar);
             ShortPath = "~" + string.Join(Path.DirectorySeparatorChar.ToString(), pathElements.Reverse().Take(5).Reverse());

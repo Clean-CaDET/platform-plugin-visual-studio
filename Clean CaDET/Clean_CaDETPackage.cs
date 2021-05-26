@@ -1,5 +1,4 @@
-﻿using Clean_CaDET.View.Commands;
-using Clean_CaDET.View.Options;
+﻿using Clean_CaDET.View.Options;
 using Clean_CaDET.View.QualityAnalysisPanel;
 using Clean_CaDET.View.ChallengePanel;
 using Microsoft.VisualStudio.Shell;
@@ -24,7 +23,7 @@ namespace Clean_CaDET
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            await SubmitChallengeCommand.InitializeAsync(this);
+            await StageChallengeCommand.InitializeAsync(this);
             await CodeAnalysisCommand.InitializeAsync(this);
         }
 
