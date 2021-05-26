@@ -1,29 +1,34 @@
 ﻿using Clean_CaDET.Model.PlatformConnection.DTOs.LearningObjects;
 using Clean_CaDET.Model.PlatformConnection.DTOs.QualityAnalysis;
-using System.Collections.Generic;
-using System.Linq;
 using Clean_CaDET.View.LearningObject;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Clean_CaDET.View.QualityAnalysisPanel.ViewModel
 {
     public class CodeEvaluationVM
     {
         public string NoIssues { get; set; }
-        public List<CodeIssueVM> Issues { get; set; }
+        public ObservableCollection<CodeIssueVM> Issues { get; set; }
 
+        public CodeEvaluationVM()
+        {
+            Issues = new ObservableCollection<CodeIssueVM>();
+        }
         public CodeEvaluationVM(Dictionary<string, List<IssueAdviceDTO>> codeSnippetIssueAdvice, ISet<LearningObjectDTO> learningObjects)
         {
             if (codeSnippetIssueAdvice.Count == 0)
             {
                 NoIssues = "According to our analysis, the submitted code does not suffer from any code smells.";
-                Issues = new List<CodeIssueVM>();
+                Issues = new ObservableCollection<CodeIssueVM>();
                 return;
             }
-            var issueMap = OrganizeAdviceAroundIssues(codeSnippetIssueAdvice, learningObjects);
-            Issues = issueMap.Values.ToList();
+            var issueMap = GroupAdviceAroundIssues(codeSnippetIssueAdvice, learningObjects);
+            Issues = new ObservableCollection<CodeIssueVM>(issueMap.Values);
         }
 
-        private static Dictionary<string, CodeIssueVM> OrganizeAdviceAroundIssues(Dictionary<string, List<IssueAdviceDTO>> codeSnippetIssueAdvice, ISet<LearningObjectDTO> learningObjects)
+        private static Dictionary<string, CodeIssueVM> GroupAdviceAroundIssues(Dictionary<string, List<IssueAdviceDTO>> codeSnippetIssueAdvice, ISet<LearningObjectDTO> learningObjects)
         {
             var issueMap = new Dictionary<string, CodeIssueVM>();
             foreach (var codeSnippetId in codeSnippetIssueAdvice.Keys)
@@ -45,11 +50,6 @@ namespace Clean_CaDET.View.QualityAnalysisPanel.ViewModel
             return learningObjects
                 .Where(lo => issue.SummaryIds.Contains(lo.LearningObjectSummaryId))
                 .Select(lo => new LearningObjectVM(lo));
-        }
-
-        public CodeEvaluationVM()
-        {
-            Issues = new List<CodeIssueVM>();
         }
     }
 }

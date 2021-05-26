@@ -4,19 +4,8 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidCCaDETPackage">
-	  <Menus>
-		<Menu guid="guidCCExtensionMenu" id="TopLevelMenu" priority="0x700" type="Menu">
-	        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
-	        <Strings>
-	        <ButtonText>Clean CaDET</ButtonText>
-	        </Strings>
-        </Menu>
-	  </Menus>
 	  <Groups>
-		  <Group guid="guidCCExtensionMenu" id="MainMenuGroup" priority="0x0600">
-			  <Parent guid="guidCCExtensionMenu" id="TopLevelMenu" />
-		  </Group>
-	      <Group guid="guidCCContextMenu" id="FolderContextGroup" priority="0x0600">
+		  <Group guid="guidCCContextMenu" id="FolderContextGroup" priority="0x0600">
             <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
           </Group>
 		  <Group guid="guidCCContextMenu" id="FileContextGroup" priority="0x0600">
@@ -31,7 +20,7 @@
 	    <CommandFlag>DefaultInvisible</CommandFlag>
 		<CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Submit Challenge Solution</ButtonText>
+          <ButtonText>Stage Challenge Solution</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidCCContextMenu" id="CodeAnalysisCommand" priority="0x0100" type="Button">
@@ -61,11 +50,6 @@
 
   <Symbols>
     <GuidSymbol name="guidCCaDETPackage" value="{549a40ba-7800-435f-8e0f-b0c5ec49fbf3}" />
-
-    <GuidSymbol name="guidCCExtensionMenu" value="{e950531b-e655-48b1-8c63-ac3526bdbb54}">
-		<IDSymbol name="TopLevelMenu" value="0x1021" />
-		<IDSymbol name="MainMenuGroup" value="0x1020" />
-    </GuidSymbol>
   
     <GuidSymbol name="guidCCContextMenu" value="{42057fd0-5cab-412d-a4f6-4330809ce9ee}">
       <IDSymbol value="4128" name="FolderContextGroup" />

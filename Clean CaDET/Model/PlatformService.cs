@@ -14,14 +14,13 @@ namespace Clean_CaDET.Model
         public PlatformService(string url)
         {
             _explorer = new SolutionExplorer();
-            _platformConnection = new CaDETConnection(url);
-            //_platformConnection = new MockConnection();
+            //_platformConnection = new CaDETConnection(url);
+            _platformConnection = new MockConnection();
         }
 
         public async Task<ChallengeEvaluationDTO> SubmitChallengeAsync(string codePath, int challengeId, int learnerId)
         {
             var sourceCode = await _explorer.CollectSourceCodeAsync(codePath);
-            //TODO: Read challenge and learner id from UI/plugin
             return await _platformConnection.SubmitChallengeAsync(sourceCode, challengeId, learnerId);
         }
 

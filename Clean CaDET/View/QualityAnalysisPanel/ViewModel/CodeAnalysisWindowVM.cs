@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Clean_CaDET.View.QualityAnalysisPanel.ViewModel
 {
-    public class CodeAnalysisWindowVM
+    public class CodeAnalysisWindowVM: INotifyPropertyChanged
     {
         private CodeEvaluationVM _content;
         public CodeEvaluationVM Content

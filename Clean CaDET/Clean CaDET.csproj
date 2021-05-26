@@ -80,11 +80,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
-    <Compile Include="View\Commands\Clean_CaDETPackage.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Clean_CaDETPackage.vsct</DependentUpon>
-    </Compile>
     <Compile Include="View\LearningObject\LearningObjectPanel.xaml.cs">
       <DependentUpon>LearningObjectPanel.xaml</DependentUpon>
     </Compile>
